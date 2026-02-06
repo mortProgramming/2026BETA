@@ -1,0 +1,42 @@
+package frc.robot.subsystems;
+
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+
+public class intake extends SubsystemBase {
+    public final double intakeSpeed = 1;    
+    public final double outakeSpeed = -1;
+    public static intake intake;
+    private SparkMax intakeMaster;
+    private SparkMaxConfig intakeConfigMaster; // Defining variables
+    private SparkMax intakeFollower;
+    private SparkMaxConfig intakeConfigFollower;
+
+    public intake() {
+        intakeMaster = new SparkMax(13, MotorType.kBrushless);      // Sparkmax Creation
+        intakeFollower = new SparkMax(14, MotorType.kBrushless);
+        intakeConfigMaster = new SparkMaxConfig();     // Config
+        intakeConfigFollower = new SparkMaxConfig();
+        intakeMaster.configure(intakeConfigMaster, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        intakeConfigFollower.follow(13);
+        intakeFollower.configure(intakeConfigFollower, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    }
+            public void setSpeed(double speed){
+            intakeMaster.set(speed);
+            }
+            public void stop() {
+            intakeMaster.set(0);        
+    }
+    public static intake getInstance() {
+        if(intake==null)
+        intake = new intake();
+        return intake;
+    }
+}
