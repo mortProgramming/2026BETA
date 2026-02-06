@@ -4,18 +4,17 @@ import frc.robot.subsystems.intake;
 public class moveIntake extends Command {
     public intake m_intake;
     public double m_speed;
-    public moveIntake(ddouble speed) {
+    public moveIntake(double speed) {
         m_speed = speed;
         m_intake = intake.getInstance();
     }
-    public void initiialize() {
-
+    public void initialize() {
     }
     public void execute() {
         m_intake.setSpeed(m_speed);
     }
-    public void end(boolwean interrupted) {
-        intake.stop();
+    public void end(boolean interrupted) {
+        m_intake.stop();
     }    
     public boolean isFinished() {
         return false;
