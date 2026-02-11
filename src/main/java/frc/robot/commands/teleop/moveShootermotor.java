@@ -3,22 +3,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.shooterMotor;
 public class moveShooterMotor extends Command {
 
-public shooterMotor m_shootermotor;
+public shooterMotor m_shooterMotor;
 public double m_speed;
 
 public moveShooterMotor(double speed){
     m_speed = speed;
-    m_shootermotor = shooterMotor.getInstance();
+    m_shooterMotor = shooterMotor.getInstance();
+    addRequirements(m_shooterMotor);
     }
+
     public void initialize() {
 
     }
 
     public void execute() {
-        m_shootermotor.setSpeed(m_speed);
+        m_shooterMotor.setSpeed(m_speed);
+
     }
     public void end(boolean interrupted) {
-        m_shootermotor.stop();
+        m_shooterMotor.stop();
     }
     public boolean isFinished() {
         return false;
