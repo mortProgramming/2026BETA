@@ -18,25 +18,27 @@ public class intake extends SubsystemBase {
     private SparkMax intakeFollower;
     private SparkMaxConfig intakeConfigFollower;
 
+
+
     public intake() {
         intakeMaster = new SparkMax(13, MotorType.kBrushless);      // Sparkmax Creation
         intakeFollower = new SparkMax(14, MotorType.kBrushless);
-        intakeConfigMaster = new SparkMaxConfig();     // Config
+        intakeConfigMaster = new SparkMaxConfig();
         intakeConfigFollower = new SparkMaxConfig();
         intakeMaster.configure(intakeConfigMaster, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        intakeConfigFollower.follow(13);
         intakeFollower.configure(intakeConfigFollower, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        intakeConfigFollower.follow(13, false);
 
     }
             public void setSpeed(double speed){
-            intakeMaster.set(speed);
-            }
+            intakeMaster.set(speed);           }
             public void stop() {
             intakeMaster.set(0);        
     }
-    public static intake getInstance() {
-        if(intake==null)
-        intake = new intake();
-        return intake;
+            public static intake getInstance() {
+                if(intake==null)
+                intake = new intake();
+                return intake;
     }
+
 }

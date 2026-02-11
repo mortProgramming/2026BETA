@@ -131,7 +131,17 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             startSimThread();
         }
     }
-
+    public void driveRelative(double xSpeed, double ySpeed, double omegaSpeed){
+        SwerveRequest request = new SwerveRequest.RobotCentric().
+            withVelocityX(xSpeed).
+            withVelocityY(ySpeed).
+            withRotationalRate(omegaSpeed);
+        setControl(request);
+    }
+    public void stop() {
+        SwerveRequest request = new SwerveRequest.RobotCentric().withVelocityX(0).withVelocityY(0).withRotationalRate(0);
+        setControl(request); 
+    }
     
     /**
      * Constructs a CTRE SwerveDrivetrain using the specified constants.

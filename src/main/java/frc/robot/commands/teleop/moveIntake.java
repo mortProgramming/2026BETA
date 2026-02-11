@@ -7,6 +7,7 @@ public class moveIntake extends Command {
     public moveIntake(double speed) {
         m_speed = speed;
         m_intake = intake.getInstance();
+        addRequirements(m_intake);
     }
     public void initialize() {
     }
