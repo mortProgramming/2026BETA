@@ -5,14 +5,15 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class shooterMotor extends SubsystemBase {
-    public static shooterMotor shootermotor; 
+public class ShooterMotor extends SubsystemBase {
+    public static ShooterMotor shootermotor; 
     private SparkMax shooter;
     private SparkMaxConfig shooterConfig; // Defining variables  
-    public shooterMotor() {
+    private ShooterMotor() {
         shooter = new SparkMax(16, MotorType.kBrushless);    // Sparkmax Creation
         shooterConfig = new SparkMaxConfig();     
-        shooter.configure(shooterConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
+        shooter.configure(shooterConfig, com.revrobotics.ResetMode.kResetSafeParameters,
+         com.revrobotics.PersistMode.kPersistParameters);
     }
             public void setSpeed(double speed){
                 shooter.set(speed);
@@ -22,9 +23,9 @@ public class shooterMotor extends SubsystemBase {
             shooter.set(0);
             }
 
-    public static shooterMotor getInstance() {
+    public static ShooterMotor getInstance() {
         if(shootermotor==null) 
-            shootermotor = new shooterMotor();
+            shootermotor = new ShooterMotor();
         return shootermotor;
 
 }
