@@ -8,10 +8,8 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class intake extends SubsystemBase {
-    public final double intakeSpeed = 1;    
-    public final double outakeSpeed = -1;
-    public static intake intake;
+public class Intake extends SubsystemBase {
+    private static Intake intake;
     private SparkMax intakeMaster;
     private SparkMaxConfig intakeConfigMaster; // Defining variables
     private SparkMax intakeFollower;
@@ -19,13 +17,15 @@ public class intake extends SubsystemBase {
 
 
 
-    public intake() {
+    private Intake() {
         intakeMaster = new SparkMax(13, MotorType.kBrushless);      // Sparkmax Creation
         intakeFollower = new SparkMax(14, MotorType.kBrushless);
         intakeConfigMaster = new SparkMaxConfig();
         intakeConfigFollower = new SparkMaxConfig();
-        intakeMaster.configure(intakeConfigMaster, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        intakeFollower.configure(intakeConfigFollower, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        intakeMaster.configure(intakeConfigMaster, ResetMode.kResetSafeParameters, 
+        PersistMode.kPersistParameters);
+        intakeFollower.configure(intakeConfigFollower, ResetMode.kResetSafeParameters, 
+        PersistMode.kPersistParameters);
         intakeConfigFollower.follow(13, false);
 
     }
@@ -34,9 +34,9 @@ public class intake extends SubsystemBase {
             public void stop() {
             intakeMaster.set(0);        
     }
-            public static intake getInstance() {
+            public static Intake getInstance() {
                 if(intake==null)
-                intake = new intake();
+                intake = new Intake();
                 return intake;
     }
 

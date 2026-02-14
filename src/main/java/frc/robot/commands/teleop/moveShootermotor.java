@@ -1,14 +1,14 @@
 package frc.robot.commands.teleop;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.shooterMotor;
-public class moveShooterMotor extends Command {
+import frc.robot.subsystems.ShooterMotor;
+public class MoveShooterMotor extends Command {
 
-public shooterMotor m_shooterMotor;
+public ShooterMotor m_shooterMotor;
 public double m_speed;
 
-public moveShooterMotor(double speed){
+public MoveShooterMotor(double speed){
     m_speed = speed;
-    m_shooterMotor = shooterMotor.getInstance();
+    m_shooterMotor = ShooterMotor.getInstance();
     addRequirements(m_shooterMotor);
     }
 

@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import frc.robot.Constants.PhysicalConstants;
+import frc.robot.Constants.PhysicalConstants.*;
+// import frc.robot.Constants.PhysicalConstants.ShooterFeederConstants;
+// import frc.robot.Constants.PhysicalConstants.IntakeConstants;
+// import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
 import static edu.wpi.first.units.Units.*;
-
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-
+import frc.robot.commands.teleop.SetIntakeArm;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -16,25 +20,24 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.commands.teleop.moveIntake;
-import frc.robot.commands.teleop.moveShooterMotor;
+import frc.robot.commands.teleop.MoveIntake;
+import frc.robot.commands.teleop.MoveShooterMotor;
+import frc.robot.Constants.TunerConstants;
 import frc.robot.commands.auto.Taxi;
-import frc.robot.commands.auto.timedDrive;
-import frc.robot.commands.teleop.moveshooterFeeder;
-import frc.robot.commands.teleop.moveintakeArm;
-
-import frc.robot.generated.TunerConstants;
+import frc.robot.commands.auto.TimedDrive;
+import frc.robot.commands.teleop.MoveShooterFeeder;
+import frc.robot.commands.teleop.MoveIntakeArm;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.intake;
-import frc.robot.subsystems.intakeArm;
-import frc.robot.subsystems.shooterFeeder;
-import frc.robot.subsystems.shooterMotor;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeArm;
+import frc.robot.subsystems.ShooterFeeder;
+import frc.robot.subsystems.ShooterMotor;
 
 public class RobotContainer {
-    private final intake m_intake = new intake();
-    private final intakeArm m_intakeArm = new intakeArm();
-    private final shooterFeeder m_shooterFeeder = new shooterFeeder();
-    private final shooterMotor m_shooterMotor = new shooterMotor();
+    private final Intake m_intake = Intake.getInstance();
+    private final IntakeArm m_intakeArm = IntakeArm.getInstance();
+    private final ShooterFeeder m_shooterFeeder = ShooterFeeder.getInstance();
+    private final ShooterMotor m_shooterMotor = ShooterMotor.getInstance();
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
@@ -54,14 +57,12 @@ public class RobotContainer {
         configureBindings();
     }
     public void configureBindings() {
-        joystick.rightBumper().whileTrue(new moveIntake(1));
-        joystick.rightTrigger().whileTrue(new moveShooterMotor(1));
-        joystick.leftBumper().whileTrue(new moveShooterMotor(-1));
-       joystick.leftTrigger().whileTrue(new moveIntake(-1));
-       joystick.a().whileTrue(new moveintakeArm(1));
-       joystick.b().whileTrue(new moveintakeArm(-1));
-       joystick.rightTrigger().whileTrue(new moveshooterFeeder(1));
-       joystick.leftTrigger().whileTrue(new moveshooterFeeder(-1));   
+        joystick.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeSpeed));
+        joystick.rightTrigger().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingSpeed));
+        joystick.a().whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));//down
+        joystick.b().whileTrue(new SetIntakeArm((PhysicalConstants.IntakeArmConstants.outPosition))); //up
+        joystick.rightTrigger().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingSpeed));
+
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand( 

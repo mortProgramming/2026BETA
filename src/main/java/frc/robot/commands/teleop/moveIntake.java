@@ -1,12 +1,12 @@
 package frc.robot.commands.teleop;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.intake;
-public class moveIntake extends Command {
-    public intake m_intake;
+import frc.robot.subsystems.Intake;
+public class MoveIntake extends Command {
+    public Intake m_intake;
     public double m_speed;
-    public moveIntake(double speed) {
+    public MoveIntake(double speed) {
         m_speed = speed;
-        m_intake = intake.getInstance();
+        m_intake = Intake.getInstance();
         addRequirements(m_intake);
     }
     public void initialize() {
@@ -20,7 +20,7 @@ public class moveIntake extends Command {
     public boolean isFinished() {
         return false;
     }
-    public static moveIntake maxSpeed(){
-        return new moveIntake(1.0);
+    public static MoveIntake maxSpeed(){
+        return new MoveIntake(1.0);
     }
 }

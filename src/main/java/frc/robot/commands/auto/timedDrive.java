@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class timedDrive extends Command {
+public class TimedDrive extends Command {
         public CommandSwerveDrivetrain drivetrain;
         public double m_time;
         public double xSpeed;
@@ -13,7 +13,7 @@ public class timedDrive extends Command {
         public double omegaSpeed;
         public Timer timer;
         
-public timedDrive(double x, double y, double omega, double time) {
+public TimedDrive(double x, double y, double omega, double time) {
         xSpeed=x;
         ySpeed=y;
         omegaSpeed=omega;
