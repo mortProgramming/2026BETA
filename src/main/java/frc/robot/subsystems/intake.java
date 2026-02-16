@@ -29,6 +29,7 @@ public class Intake extends SubsystemBase {
         intakeConfigFollower.follow(13, false);
 
     }
+
             public void setSpeed(double speed){
             intakeMaster.set(speed);           }
             public void stop() {

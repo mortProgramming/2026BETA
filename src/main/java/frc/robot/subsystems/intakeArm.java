@@ -8,10 +8,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
-import frc.robot.Constants.PIDConstants;
 import frc.robot.Constants.PIDConstants.IntakeArmConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import frc.robot.Constants.PhysicalConstants;
 import com.revrobotics.spark.SparkBase.ControlType;
 public class IntakeArm extends SubsystemBase  {
         private SparkClosedLoopController ClosedLoopController;

@@ -28,5 +28,8 @@ public class ShooterMotor extends SubsystemBase {
             shootermotor = new ShooterMotor();
         return shootermotor;
 
+        //v₀ = √[(33.37·x²)/(1.036x - 4)] 
+        //Shooter Formula
+
 }
 }
