@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
                 new TimedDrive(3, 0, 0,3), 
                 new MoveShooterMotor(1), 
                 new TimedDrive(0, -3, 0,3)
+                
             )
         );
     }

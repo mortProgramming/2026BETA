@@ -14,4 +14,8 @@ public final class PhysicalConstants {
         public final class ShooterMotorConstants {
         public static final double shootingSpeed = 1;
     }
+    public final class ClimberConstants {
+        public static final double climbPos = 1;
+        public static final double restPos = 0;
+    }
 }

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.teleop.MoveIntake;
 import frc.robot.commands.teleop.MoveShooterMotor;
+import frc.robot.commands.teleop.SetClimber;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.commands.auto.Taxi;
 import frc.robot.commands.auto.TimedDrive;
@@ -60,7 +61,9 @@ public class RobotContainer {
         joystick.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeSpeed));
         joystick.rightTrigger().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingSpeed));
         joystick.a().whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));//down
-        joystick.b().whileTrue(new SetIntakeArm((PhysicalConstants.IntakeArmConstants.outPosition))); //up
+        joystick.b().whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition)); //up
+        joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
+        joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
         joystick.rightTrigger().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingSpeed));
 
         // Note that X is defined as forward according to WPILib convention,
