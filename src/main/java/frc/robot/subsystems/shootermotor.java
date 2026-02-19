@@ -1,26 +1,26 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.ShooterMotorConstants;
 
 public class ShooterMotor extends SubsystemBase {
     public static ShooterMotor shootermotor; 
-    private SparkMax shooter;
-    public SparkMax shooterFollower;
-    public SparkMaxConfig shooterFollowerConfig;
-    private SparkMaxConfig shooterConfig; // Defining variables  
+    private SparkFlex shooter;
+    public SparkFlex shooterFollower;
+    public SparkFlexConfig shooterFollowerConfig;
+    private SparkFlexConfig shooterConfig; // Defining variables  
     private ShooterMotor() {
-        shooter = new SparkMax(17, MotorType.kBrushless);    // Sparkmax Creation
-        shooterConfig = new SparkMaxConfig();     
+        shooter = new SparkFlex(17, MotorType.kBrushless);    // SparkFlex Creation
+        shooterConfig = new SparkFlexConfig();     
         shooter.configure(shooterConfig, com.revrobotics.ResetMode.kResetSafeParameters,
          com.revrobotics.PersistMode.kPersistParameters);
                  
-        shooterFollower= new SparkMax(18, MotorType.kBrushless);
-        shooterFollowerConfig = new SparkMaxConfig();
+        shooterFollower= new SparkFlex(18, MotorType.kBrushless);
+        shooterFollowerConfig = new SparkFlexConfig();
         shooterFollower.configure(shooterFollowerConfig, com.revrobotics.ResetMode.kResetSafeParameters,
          com.revrobotics.PersistMode.kPersistParameters);
 

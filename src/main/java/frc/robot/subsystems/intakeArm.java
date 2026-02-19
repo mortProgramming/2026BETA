@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PIDConstants.IntakeArmConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -32,12 +33,12 @@ public class IntakeArm extends SubsystemBase  {
             ClosedLoopController=intakeRotate.getClosedLoopController();
         }
 
-        public void setSpeed(double speed) {
-            intakeRotate.set(speed);
-        }
-        public void stop() {
-            intakeRotate.set(0);
-        }
+    //    public void setSpeed(double speed) {
+      //      intakeRotate.set(1);
+     // }
+      //  public void stop() {
+      //      intakeRotate.set(0);
+        //}
         @Override
         public void periodic(){
             updatePosition();
@@ -59,5 +60,4 @@ public class IntakeArm extends SubsystemBase  {
             intakeArm = new IntakeArm();
             return intakeArm;
     }
-
 }

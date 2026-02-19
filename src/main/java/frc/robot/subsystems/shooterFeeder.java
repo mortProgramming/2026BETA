@@ -1,28 +1,28 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.ShooterFeederConstants;
 
 public class ShooterFeeder extends SubsystemBase {
     public static ShooterFeeder shooterFeeder;
-    public SparkMax feederMaster;
-    public SparkMaxConfig feederMasterConfig;
-    public SparkMax feederFollower1;
-    public SparkMaxConfig feederFollower1Config;
-    public SparkMax feederFollower2;
-    public SparkMaxConfig feederFollower2Config;
+    public SparkFlex feederMaster;
+    public SparkFlexConfig feederMasterConfig;
+    public SparkFlex feederFollower1;
+    public SparkFlexConfig feederFollower1Config;
+    public SparkFlex feederFollower2;
+    public SparkFlexConfig feederFollower2Config;
     private ShooterFeeder() {
-        feederMaster = new SparkMax(16, MotorType.kBrushless);
-        feederMasterConfig = new SparkMaxConfig();
+        feederMaster = new SparkFlex(16, MotorType.kBrushless);
+        feederMasterConfig = new SparkFlexConfig();
         feederMaster.configure(feederMasterConfig, com.revrobotics.ResetMode.kResetSafeParameters, 
         com.revrobotics.PersistMode.kPersistParameters);
         
-    //    feederFollower2 = new SparkMax(19, MotorType.kBrushless);
- //       feederFollower2Config = new SparkMaxConfig();
+    //    feederFollower2 = new SparkFlex(19, MotorType.kBrushless);
+ //       feederFollower2Config = new SparkFlexConfig();
    //     feederFollower2.configure(feederFollower2Config, com.revrobotics.ResetMode.kResetSafeParameters,
       //   com.revrobotics.PersistMode.kPersistParameters);
     

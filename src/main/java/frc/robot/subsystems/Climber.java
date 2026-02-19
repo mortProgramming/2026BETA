@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -15,12 +15,12 @@ import com.revrobotics.spark.SparkBase.ControlType;
 public class Climber extends SubsystemBase {
     public static Climber climber;
     private SparkClosedLoopController closedLoopController2;
-    public SparkMax climbMotor; 
-    public SparkMaxConfig climbMotorConfig;
+    public SparkFlex climbMotor; 
+    public SparkFlexConfig climbMotorConfig;
     public double position2;
-    private Climber() {
-        climbMotor = new SparkMax(20, MotorType.kBrushless);
-        climbMotorConfig = new SparkMaxConfig();
+    private Climber() {  
+        climbMotor = new SparkFlex(20, MotorType.kBrushless);
+        climbMotorConfig = new SparkFlexConfig();
         climbMotor.configure(climbMotorConfig, com.revrobotics.ResetMode.kResetSafeParameters, 
         com.revrobotics.PersistMode.kPersistParameters);
                 climbMotorConfig.closedLoop
@@ -41,7 +41,7 @@ public class Climber extends SubsystemBase {
             return position2;
         }
         public void updatePosition(){
-            position2=climbMotor.getEncoder().getPosition();
+            position2=climbMotor.getExternalEncoder().getPosition();
         }
         public void setSetpoint(double setpoint){
             closedLoopController2.setSetpoint(setpoint, ControlType.kPosition);
