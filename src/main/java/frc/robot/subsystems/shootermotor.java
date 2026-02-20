@@ -26,18 +26,18 @@ public class ShooterMotor extends SubsystemBase {
 
          shooterFollowerConfig.follow(17, true);
     }
-            public void setSpeed(double speed){
-                shooter.set(PhysicalConstants.ShooterMotorConstants.shootingSpeed);
-            }
+        public void setSpeed(double speed){
+            shooter.set(speed);
+        }
 
-            public void stop() {
+        public void stop() {
             shooter.set(0);
-            }
+        }
 
-    public static ShooterMotor getInstance() {
-        if(shootermotor==null) 
-            shootermotor = new ShooterMotor();
-        return shootermotor;
+        public static ShooterMotor getInstance() {
+            if(shootermotor==null) 
+                shootermotor = new ShooterMotor();
+            return shootermotor;
 
         //v₀ = √[(33.37·x²)/(1.036x - 4)] 
         //Shooter Formula

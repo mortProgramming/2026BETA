@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
         addCommands(
             new SequentialCommandGroup(
                 new TimedDrive(3, 0, 0,3), 
-                new TimedShoot(3), 
+                // new TimedShoot(3), 
                 new TimedDrive(0, -3, 0,3)
 
             )
