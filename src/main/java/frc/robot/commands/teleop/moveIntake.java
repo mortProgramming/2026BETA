@@ -20,7 +20,7 @@ public class MoveIntake extends Command {
     public boolean isFinished() {
         return false;
     }
-    public static MoveIntake maxSpeed(){
-        return new MoveIntake(1.0);
-    }
+    // public static MoveIntake maxSpeed(){
+    //     return new MoveIntake(1.0);
+    // }
 }

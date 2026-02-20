@@ -22,14 +22,14 @@ public class ShooterFeeder extends SubsystemBase {
         com.revrobotics.PersistMode.kPersistParameters);
         
     //    feederFollower2 = new SparkFlex(19, MotorType.kBrushless);
- //       feederFollower2Config = new SparkFlexConfig();
+ //       feederFollower2Config = new Spa0rkFlexConfig();
    //     feederFollower2.configure(feederFollower2Config, com.revrobotics.ResetMode.kResetSafeParameters,
       //   com.revrobotics.PersistMode.kPersistParameters);
     
      //   feederFollower2Config.follow(feederMaster, true);
     }
         public void setSpeed(double speed) {
-            feederMaster.set(PhysicalConstants.ShooterFeederConstants.feedingSpeed);
+            feederMaster.set(speed);
         }
         public void stop() {
             feederMaster.set(0);

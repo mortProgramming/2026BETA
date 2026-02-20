@@ -15,8 +15,6 @@ public class Intake extends SubsystemBase {
     //private SparkFlex intakeFollower;
     //private SparkFlexConfig intakeConfigFollower;
 
-
-
     private Intake() {
         intakeMaster = new SparkFlex(14, MotorType.kBrushless);      // SparkFlex Creation
        // intakeFollower = new SparkFlex(15, MotorType.kBrushless);
@@ -28,13 +26,15 @@ public class Intake extends SubsystemBase {
       //  PersistMode.kPersistParameters);
       //  intakeConfigFollower.follow(14, false);
 
-    }
+        }
 
             public void setSpeed(double speed){
-            intakeMaster.set(speed);           }
+            intakeMaster.set(speed);           
+        }
+
             public void stop() {
             intakeMaster.set(0);        
-    }
+        }
             public static Intake getInstance() {
                 if(intake==null)
                 intake = new Intake();

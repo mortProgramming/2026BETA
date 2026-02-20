@@ -33,14 +33,14 @@ public class IntakeArm extends SubsystemBase  {
             ClosedLoopController=intakeRotate.getClosedLoopController();
         }
 
-    //    public void setSpeed(double speed) {
-      //      intakeRotate.set(1);
-     // }
+       public void setSpeed(double speed) {
+           intakeRotate.set(speed);
+     }
         
         public void periodic(){
             updatePosition();
-            SmartDashboard.putNumber("Position", position);
-            SmartDashboard.putNumber("Speed", intakeRotate.get());
+            SmartDashboard.putNumber("Intake Arm Position", position);
+            SmartDashboard.putNumber("Intake Arm Speed", intakeRotate.get());
         }
         public double getPosition(){
             return position;

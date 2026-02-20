@@ -5,20 +5,22 @@ import frc.robot.Constants.PhysicalConstants;
 import frc.robot.subsystems.ShooterFeeder;
 public class MoveShooterFeeder extends Command {
     private ShooterFeeder m_moveshooterFeeder;
+    public double speed;
     public MoveShooterFeeder(double speed) {
         m_moveshooterFeeder = ShooterFeeder.getInstance();
+        this.speed=speed;
             addRequirements(m_moveshooterFeeder);
     }
-     public void initialize() {
+    public void initialize() {
 
+    }
+    public void execute() {
+        m_moveshooterFeeder.setSpeed(speed);
      }
-     public void execute() {
-        m_moveshooterFeeder.setSpeed(PhysicalConstants.ShooterFeederConstants.feedingSpeed);
-     }
-     public void end(boolean interrupted) {
+    public void end(boolean interrupted) {
         m_moveshooterFeeder.stop();
      }    
-     public boolean isFinished() {
+    public boolean isFinished() {
          return false;
      }
     
