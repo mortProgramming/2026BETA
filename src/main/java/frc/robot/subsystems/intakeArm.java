@@ -36,10 +36,7 @@ public class IntakeArm extends SubsystemBase  {
     //    public void setSpeed(double speed) {
       //      intakeRotate.set(1);
      // }
-      //  public void stop() {
-      //      intakeRotate.set(0);
-        //}
-        @Override
+        
         public void periodic(){
             updatePosition();
             SmartDashboard.putNumber("Position", position);
@@ -60,4 +57,7 @@ public class IntakeArm extends SubsystemBase  {
             intakeArm = new IntakeArm();
             return intakeArm;
     }
+        public void stop() {
+    intakeRotate.set(PhysicalConstants.IntakeArmConstants.inPosition);
+        }
 }

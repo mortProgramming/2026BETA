@@ -1,4 +1,5 @@
 package frc.robot.commands.teleop;
+import frc.robot.Constants.PhysicalConstants;
 import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -15,10 +16,10 @@ public class MoveIntakeArm extends Command {
     public void initialize() {
     }
     public void execute() {
-        m_intakeArm.setSpeed(m_speed);
+        m_intakeArm.setSetpoint(PhysicalConstants.IntakeArmConstants.outPosition);
     }
     public void end(boolean interrupted) {
-        m_intakeArm.stop();
+        m_intakeArm.setSetpoint(PhysicalConstants.IntakeArmConstants.inPosition);
     }    
     public boolean isFinished() {
         return false;
