@@ -2,8 +2,8 @@ package frc.robot.Constants;
 
 public final class PhysicalConstants {
     public static final class IntakeConstants {
-        public static final double intakePos = 0.5;
-        public static final double intakeNeg = -0.5;
+        public static final double intakePos = 1;
+        public static final double intakeNeg = -1;
 
     }
     
@@ -16,13 +16,13 @@ public final class PhysicalConstants {
     }
     
     public static final class ShooterFeederConstants {
-        public static final double feedingPos = 0.5;
-        public static final double feedingNeg = -0.5;
+        public static final double feedingPos = 1;
+        public static final double feedingNeg = -1;
     }
     
     public static final class ShooterMotorConstants {
-        public static final double shootingPos = 0.5;
-        public static final double shootingNeg = -0.5;
+        public static final double shootingPos = 0.7;
+        public static final double shootingNeg = 0.7;
     }
 
   //  public static final class ClimberConstants {
