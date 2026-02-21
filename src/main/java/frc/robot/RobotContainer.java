@@ -68,26 +68,26 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
-
+    private final CommandXboxController endeffectorController = new CommandXboxController(1);
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
         configureBindings();
     }
     public void configureBindings() {
-        joystick.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
-        joystick.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
+        endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
+        endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
 
-        joystick.rightTrigger().whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
-        joystick.leftTrigger().whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
+        endeffectorController.rightTrigger().whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
+        endeffectorController.leftTrigger().whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
 
-        joystick.a().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
-        joystick.b().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingNeg));
+        endeffectorController.a().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
+        endeffectorController.b().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingNeg));
 
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
 
-        joystick.x().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
-        joystick.y().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
+        endeffectorController.x().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
+        endeffectorController.y().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
 
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
@@ -107,7 +107,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        joystick.pov(180).whileTrue(drivetrain.applyRequest(() -> brake));
+       // joystick.pov(180).whileTrue(drivetrain.applyRequest(() -> brake));
 
         joystick.pov(0).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
