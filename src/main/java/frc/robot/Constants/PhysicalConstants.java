@@ -11,7 +11,7 @@ public final class PhysicalConstants {
         public static final double intakeArmPos = 1;
         public static final double intakeArmNeg = -1;
 
-        public static final double outPosition = 1;
+        public static final double outPosition = 2.73;
         public static final double inPosition = 0;
     }
     
@@ -21,8 +21,12 @@ public final class PhysicalConstants {
     }
     
     public static final class ShooterMotorConstants {
-        public static final double shootingPos = 0.7;
-        public static final double shootingNeg = 0.7;
+        public static final double shootingPos = 0.6;
+        public static final double shootingNeg = -0.6;
+    }
+    public static final class ShooterMotorConstants2 {
+        public static final double shootingPos = 0.9;
+        public static final double shootingNeg = -0.9;
     }
 
   //  public static final class ClimberConstants {

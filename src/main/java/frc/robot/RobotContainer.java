@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -37,6 +38,9 @@ import frc.robot.subsystems.ShooterMotor;
 import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmPos;
 import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmNeg;
 
+import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants2.shootingNeg;
+import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants2.shootingPos;
+
 import static frc.robot.Constants.PhysicalConstants.IntakeConstants.intakePos;
 import static frc.robot.Constants.PhysicalConstants.IntakeConstants.intakeNeg;
 
@@ -45,6 +49,8 @@ import static frc.robot.Constants.PhysicalConstants.ShooterFeederConstants.feedi
 
 import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shootingPos;
 import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shootingNeg;
+
+
 
 
 
@@ -67,8 +73,11 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    private static final CommandJoystick joystick = new CommandJoystick(0);
+
+    //private final CommandXboxController joystick = new CommandXboxController(0);
     private final CommandXboxController endeffectorController = new CommandXboxController(1);
+
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
         configureBindings();
@@ -77,11 +86,14 @@ public class RobotContainer {
         endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
         endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
 
-        endeffectorController.rightTrigger().whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
-        endeffectorController.leftTrigger().whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
+        endeffectorController.rightTrigger().onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
+        endeffectorController.leftTrigger().onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
 
         endeffectorController.a().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
         endeffectorController.b().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingNeg));
+
+        endeffectorController.pov(90).whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingPos));
+        endeffectorController.pov(270).whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingNeg));
 
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
@@ -89,16 +101,30 @@ public class RobotContainer {
         endeffectorController.x().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
         endeffectorController.y().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
 
+    // THIS IS FLIGHTSTICK 
+       
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
-        drivetrain.setDefaultCommand( 
+        drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-            )
+                drive.withVelocityX(-joystick.getY() * MaxSpeed * (((-joystick.getThrottle() + 1 ) / 2) + 0.1)) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getX() * MaxSpeed * (((-joystick.getThrottle() + 1 ) / 2) + 0.1)) // Drive left with negative X (left)
+                    .withRotationalRate(-joystick.getTwist() * MaxAngularRate * (((-joystick.getThrottle() + 1 ) / 2) + 0.1)) // Drive counterclockwise with negative X (left)
+                    )
         );
+///   THIS IS X BOX CONTROLLER
+
+        // Note that X is defined as forward according to WPILib convention,
+        // and Y is defined as to the left according to WPILib convention.
+        //drivetrain.setDefaultCommand( 
+            // Drivetrain will execute this command periodically
+            // drivetrain.applyRequest(() ->
+            //     drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+            //         .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+            //         .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+      //      )
+      //  );
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
