@@ -21,8 +21,8 @@ public final class PhysicalConstants {
     }
     
     public static final class ShooterMotorConstants {
-        public static final double shootingPos = 0.6;
-        public static final double shootingNeg = -0.6;
+        public static final double shootingPos = 0.67;
+        public static final double shootingNeg = -0.67;
     }
     public static final class ShooterMotorConstants2 {
         public static final double shootingPos = 0.9;
