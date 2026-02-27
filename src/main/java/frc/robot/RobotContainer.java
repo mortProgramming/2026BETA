@@ -69,14 +69,14 @@ public class RobotContainer {
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-    private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+    private final SwerveRequest.PointWheelsAt   point = new SwerveRequest.PointWheelsAt();
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private static final CommandJoystick joystick = new CommandJoystick(0);
+   
 
-    //private final CommandXboxController joystick = new CommandXboxController(0);
-    private final CommandXboxController endeffectorController = new CommandXboxController(1);
+   private final CommandXboxController joystick = new CommandXboxController(0);
+   private final CommandXboxController endeffectorController = new CommandXboxController(1);
 
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
@@ -101,30 +101,19 @@ public class RobotContainer {
         endeffectorController.x().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
         endeffectorController.y().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
 
-    // THIS IS FLIGHTSTICK 
-       
-        // Note that X is defined as forward according to WPILib convention,
-        // and Y is defined as to the left according to WPILib convention.
-        drivetrain.setDefaultCommand(
-            // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getY() * MaxSpeed * (((-joystick.getThrottle() + 1 ) / 2) + 0.1)) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getX() * MaxSpeed * (((-joystick.getThrottle() + 1 ) / 2) + 0.1)) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getTwist() * MaxAngularRate * (((-joystick.getThrottle() + 1 ) / 2) + 0.1)) // Drive counterclockwise with negative X (left)
-                    )
-        );
+
 ///   THIS IS X BOX CONTROLLER
 
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
-        //drivetrain.setDefaultCommand( 
+        drivetrain.setDefaultCommand( 
             // Drivetrain will execute this command periodically
-            // drivetrain.applyRequest(() ->
-            //     drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-            //         .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-            //         .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-      //      )
-      //  );
+            drivetrain.applyRequest(() ->
+                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                   .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+           )
+       );
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
