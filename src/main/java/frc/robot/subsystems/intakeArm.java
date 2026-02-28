@@ -58,6 +58,6 @@ public class IntakeArm extends SubsystemBase  {
             return intakeArm;
     }
         public void stop() {
-    intakeRotate.set(PhysicalConstants.IntakeArmConstants.inPosition);
+    intakeRotate.set(0);
         }
 }
