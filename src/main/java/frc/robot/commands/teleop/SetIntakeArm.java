@@ -21,6 +21,6 @@ public class SetIntakeArm extends Command {
         intakeArm.stop();
     }
     public boolean isFinished() {
-        return false;
+        return intakeArm.atSetpoint();
     }
 }

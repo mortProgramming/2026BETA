@@ -57,6 +57,9 @@ public class IntakeArm extends SubsystemBase  {
             intakeArm = new IntakeArm();
             return intakeArm;
     }
+        public boolean atSetpoint(){
+            return ClosedLoopController.isAtSetpoint();
+        }
         public void stop() {
     intakeRotate.set(0);
         }
