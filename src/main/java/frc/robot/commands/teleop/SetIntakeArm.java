@@ -1,6 +1,7 @@
 package frc.robot.commands.teleop;
 import edu.wpi.first.wpilibj2.command.Command; 
 import frc.robot.subsystems.IntakeArm;
+import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
 
 public class SetIntakeArm extends Command {

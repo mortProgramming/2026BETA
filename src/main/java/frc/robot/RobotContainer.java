@@ -38,7 +38,6 @@ import frc.robot.subsystems.ShooterMotor;
 import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmPos;
 import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmNeg;
 
-import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants2.shootingNeg;
 import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants2.shootingPos;
 
 import static frc.robot.Constants.PhysicalConstants.IntakeConstants.intakePos;
@@ -48,7 +47,6 @@ import static frc.robot.Constants.PhysicalConstants.ShooterFeederConstants.feedi
 import static frc.robot.Constants.PhysicalConstants.ShooterFeederConstants.feedingNeg;
 
 import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shootingPos;
-import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shootingNeg;
 
 
 
@@ -88,12 +86,9 @@ public class RobotContainer {
 
         endeffectorController.rightTrigger().onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
         endeffectorController.leftTrigger().onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
-
         endeffectorController.a().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
-        endeffectorController.b().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingNeg));
-
-        endeffectorController.pov(90).whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingPos));
-        endeffectorController.pov(270).whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingNeg));
+        endeffectorController.b().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingPos));
+        endeffectorController.pov(90).whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants3.shootingPos));
 
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
@@ -122,9 +117,9 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-       // joystick.pov(180).whileTrue(drivetrain.applyRequest(() -> brake));
+       joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
 
-        joystick.pov(0).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         // joystick.b().whileTrue(drivetrain.applyRequest(() ->
         //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
