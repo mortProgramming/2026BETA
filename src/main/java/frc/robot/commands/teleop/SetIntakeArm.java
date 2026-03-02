@@ -12,7 +12,6 @@ public class SetIntakeArm extends Command {
         setpoint=position;
     }
     public void initialize(){
-
     }
     public void execute(){
         intakeArm.setSetpoint(setpoint);

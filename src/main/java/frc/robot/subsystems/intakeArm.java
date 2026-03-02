@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import frc.robot.Constants.PIDConstants;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PIDConstants.IntakeArmConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,20 +23,24 @@ public class IntakeArm extends SubsystemBase  {
             intakeRotate = new SparkMax(15, MotorType.kBrushless);  
             intakeConfigRotate = new SparkMaxConfig();
 
+            intakeConfigRotate.closedLoop
+                .p(PIDConstants.IntakeArmConstants.kP)
+                .i(PIDConstants.IntakeArmConstants.kI)
+                .d(PIDConstants.IntakeArmConstants.kD);
+                            
             intakeRotate.configure(intakeConfigRotate, com.revrobotics.ResetMode.kResetSafeParameters, 
                 com.revrobotics.PersistMode.kPersistParameters);
-
-            intakeConfigRotate.closedLoop
-                .p(IntakeArmConstants.kP)
-                .i(IntakeArmConstants.kI)
-                .d(IntakeArmConstants.kD);
-
+            
             ClosedLoopController=intakeRotate.getClosedLoopController();
         }
+
 
        public void setSpeed(double speed) {
            intakeRotate.set(speed);
      }
+        public double getSpeed(){
+            return intakeRotate.get();
+        }
         
         public void periodic(){
             updatePosition();
