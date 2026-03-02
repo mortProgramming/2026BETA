@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
         public Taxi() {
         addCommands(
             new ParallelCommandGroup(     
-                new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition),  
-                new TimedIntake(20, PhysicalConstants.IntakeConstants.intakePos),
+              //  new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition),  
+            // new TimedIntake(20, PhysicalConstants.IntakeConstants.intakePos),
                 new SequentialCommandGroup(
                     new ParallelCommandGroup(          
-                        new TimedDrive(3, 0, 0,3), 
+                  //      new TimedDrive(0.5, 0, 0,2), 
                         new TimedShoot(3, PhysicalConstants.ShooterMotorConstants.shootingPos)),
                     new ParallelCommandGroup(
                         new TimedShoot(3, PhysicalConstants.ShooterMotorConstants.shootingPos),

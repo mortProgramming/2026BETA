@@ -9,6 +9,9 @@ import frc.robot.Constants.PhysicalConstants.*;
 // import frc.robot.Constants.PhysicalConstants.ShooterFeederConstants;
 // import frc.robot.Constants.PhysicalConstants.IntakeConstants;
 // import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -59,6 +62,7 @@ public class RobotContainer {
     private final IntakeArm m_intakeArm = IntakeArm.getInstance();
     private final ShooterFeeder m_shooterFeeder = ShooterFeeder.getInstance();
     private final ShooterMotor m_shooterMotor = ShooterMotor.getInstance();
+    private SendableChooser<Command> autoChooser;
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
@@ -79,22 +83,27 @@ public class RobotContainer {
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
         configureBindings();
+        configureAuto();
     }
     public void configureBindings() {
         endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
         endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
 
-        endeffectorController.rightTrigger().onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
-        endeffectorController.leftTrigger().onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
-        endeffectorController.a().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
-        endeffectorController.b().whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingPos));
-        endeffectorController.pov(90).whileTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants3.shootingPos));
+        // endeffectorController.pov(0).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
+        // endeffectorController.pov(180).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+        endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
+        endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+
+        endeffectorController.x().onTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
+        endeffectorController.y().onTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingPos));
+        endeffectorController.b().onTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants3.shootingPos));
+        endeffectorController.a().onTrue(new MoveShooterMotor(0));
 
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
 
-        endeffectorController.x().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
-        endeffectorController.y().whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
+        endeffectorController.rightTrigger(0.2).whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
+        endeffectorController.leftTrigger(0.2).whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
 
 
 ///   THIS IS X BOX CONTROLLER
@@ -137,23 +146,29 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
-
-    public Command getAutonomousCommand() {
-        // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
-        return Commands.sequence(
-            // Reset our field centric heading to match the robot
-            // facing away from our alliance station wall (0 deg).
-            drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
-            // Then slowly drive forward (away from us) for 5 seconds.
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(0.5)
-                    .withVelocityY(0)
-                    .withRotationalRate(0)
-            )
-            .withTimeout(5.0),
-            // Finally idle for the rest of auton
-            drivetrain.applyRequest(() -> idle)
-        );
-    }
+public void configureAuto() {
+    autoChooser = new SendableChooser<Command>();
+    autoChooser.addOption("TimedTaxi", new Taxi());
+    SmartDashboard.putData("Auto Chooser", autoChooser);
 }
+    public Command getAutonomousCommand() {
+         return autoChooser.getSelected();
+        // Simple drive forward auton
+        // final var idle = new SwerveRequest.Idle();
+        // return Commands.sequence(
+        //     // Reset our field centric heading to match the robot
+        //     // facing away from our alliance station wall (0 deg).
+        //     drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
+        //     // Then slowly drive forward (away from us) for 5 seconds.
+        //     drivetrain.applyRequest(() ->
+        //         drive.withVelocityX(0.5)
+        //             .withVelocityY(0)
+        //             .withRotationalRate(0)
+        //     )
+        //     .withTimeout(5.0),
+        //     // Finally idle for the rest of auton
+        //     drivetrain.applyRequest(() -> idle)
+       
+}
+    }
+
