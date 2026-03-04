@@ -35,6 +35,6 @@ public class TimedIntake extends Command {
         timer.stop();
     }
     public boolean isFinished() {
-        return timer.hasElapsed(time);
+        return timer.get() > time;
     }
 }

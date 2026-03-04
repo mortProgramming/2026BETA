@@ -28,7 +28,10 @@ import frc.robot.commands.teleop.MoveIntake;
 import frc.robot.commands.teleop.MoveShooterMotor;
 // import frc.robot.commands.teleop.SetClimber;
 import frc.robot.Constants.TunerConstants;
-import frc.robot.commands.auto.Taxi;
+import frc.robot.commands.auto.TaxiCenter;
+import frc.robot.commands.auto.TaxiLSide;
+import frc.robot.commands.auto.TaxiNothing;
+import frc.robot.commands.auto.TaxiRSide;
 import frc.robot.commands.auto.TimedDrive;
 import frc.robot.commands.teleop.MoveShooterFeeder;
 import frc.robot.commands.teleop.MoveIntakeArm;
@@ -148,9 +151,17 @@ public class RobotContainer {
     }
 public void configureAuto() {
     autoChooser = new SendableChooser<Command>();
-    autoChooser.addOption("TimedTaxi", new Taxi());
+    autoChooser.setDefaultOption("TimedTaxiNothing", new TaxiNothing());
+    autoChooser.addOption("TimedTaxiCenter", new TaxiCenter());
+    autoChooser.addOption("TimedTaxiRight", new TaxiRSide());
+        autoChooser.addOption("TimedTaxiLeft", new TaxiLSide());
     SmartDashboard.putData("Auto Chooser", autoChooser);
+    
 }
+
+    public static CommandSwerveDrivetrain getSwerveDrivetrain() {
+        return drivetrain;
+    }
     public Command getAutonomousCommand() {
          return autoChooser.getSelected();
         // Simple drive forward auton
