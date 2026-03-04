@@ -47,13 +47,13 @@ public class ShooterMotor extends SubsystemBase {
         shooterFollowerConfig = new SparkFlexConfig();
 
          shooterFollowerConfig.follow(17, true);
-         
+
         shooterFollower.configure(shooterFollowerConfig, com.revrobotics.ResetMode.kResetSafeParameters,
          com.revrobotics.PersistMode.kPersistParameters);
 
     }
         public void setSpeed(double speed){
-            shooter.set(speed);
+            shooter.setVoltage(speed * 12);
         }
 
         public void stop() {

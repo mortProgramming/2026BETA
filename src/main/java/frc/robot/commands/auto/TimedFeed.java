@@ -30,13 +30,14 @@ public class TimedFeed extends Command{
     }
     public void execute() {
         shooterFeeder.setSpeed(speed);
+        System.out.printf("speed: ", speed);
     }
     public void end(boolean interrupted) {
         shooterFeeder.setSpeed(0);
         timer.stop();
     }
     public boolean isFinished() {
-        return timer.hasElapsed(time);
+        return timer.get() > time;
     }
 }
 
