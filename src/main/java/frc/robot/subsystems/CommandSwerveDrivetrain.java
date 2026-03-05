@@ -23,8 +23,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
-import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
+import frc.robot.Constants.TunerConstants.TunerSwerveDrivetrain;
 
 /**
  * Class that extends the Phoenix 6 SwerveDrivetrain class and implements
@@ -41,7 +40,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
     /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
-    private static final Rotation2d kRedAlliancePerspectiveRotation = Rotation2d.k180deg;
+    private static final Rotation2d kRedAlliancePerspectiveRotation = Rotation2d.kZero;  //changed from 180 to 0
     /* Keep track if we've ever applied the operator perspective before or not */
     private boolean m_hasAppliedOperatorPerspective = false;
 
@@ -131,7 +130,18 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             startSimThread();
         }
     }
-
+    public void driveRelative(double xSpeed, double ySpeed, double omegaSpeed){
+        SwerveRequest request = new SwerveRequest.RobotCentric().
+            withVelocityX(xSpeed).
+            withVelocityY(ySpeed).
+            withRotationalRate(omegaSpeed);
+        setControl(request);
+    }
+    public void stop() {
+        SwerveRequest request = new SwerveRequest.RobotCentric().withVelocityX(0).withVelocityY(0).withRotationalRate(0);
+        setControl(request); 
+    }
+    
     /**
      * Constructs a CTRE SwerveDrivetrain using the specified constants.
      * <p>
