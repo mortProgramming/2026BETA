@@ -201,8 +201,8 @@
   ],
   "SwerveOptions": {
     "Gyro": {
-      "Id": 0,
-      "Name": "Pigeon 2 vers. S (Device ID 0)",
+      "Id": 36,
+      "Name": "Pigeon 2 vers. S (Device ID 36)",
       "Model": "Pigeon 2 vers. S",
       "CANbus": "rio",
       "CANbusFriendly": "",
