@@ -16,6 +16,7 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.commands.teleop.SetIntakeArm;
+import frc.robot.commands.teleop.SetShooterVelocity;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -29,9 +30,15 @@ import frc.robot.commands.teleop.MoveShooterMotor;
 // import frc.robot.commands.teleop.SetClimber;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.commands.auto.TaxiCenter;
+import frc.robot.commands.auto.TaxiCenterDepot;
+import frc.robot.commands.auto.TaxiLAttack;
 import frc.robot.commands.auto.TaxiLSide;
+import frc.robot.commands.auto.TaxiLSideAnnoy;
+import frc.robot.commands.auto.TaxiLSideDepot;
 import frc.robot.commands.auto.TaxiNothing;
+import frc.robot.commands.auto.TaxiRAttack;
 import frc.robot.commands.auto.TaxiRSide;
+import frc.robot.commands.auto.TaxiRSideAnnoy;
 import frc.robot.commands.auto.TimedDrive;
 import frc.robot.commands.teleop.MoveShooterFeeder;
 import frc.robot.commands.teleop.MoveIntakeArm;
@@ -44,7 +51,7 @@ import frc.robot.subsystems.ShooterMotor;
 import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmPos;
 import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmNeg;
 
-import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants2.shootingPos;
+import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants2.shootingVel;
 
 import static frc.robot.Constants.PhysicalConstants.IntakeConstants.intakePos;
 import static frc.robot.Constants.PhysicalConstants.IntakeConstants.intakeNeg;
@@ -52,7 +59,7 @@ import static frc.robot.Constants.PhysicalConstants.IntakeConstants.intakeNeg;
 import static frc.robot.Constants.PhysicalConstants.ShooterFeederConstants.feedingPos;
 import static frc.robot.Constants.PhysicalConstants.ShooterFeederConstants.feedingNeg;
 
-import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shootingPos;
+import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shootingVel;
 
 
 
@@ -89,17 +96,18 @@ public class RobotContainer {
         configureAuto();
     }
     public void configureBindings() {
+
         endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
         endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
 
         // endeffectorController.pov(0).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
         // endeffectorController.pov(180).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
-        endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+        endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
 
-        endeffectorController.x().onTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants.shootingPos));
-        endeffectorController.y().onTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants2.shootingPos));
-        endeffectorController.b().onTrue(new MoveShooterMotor(PhysicalConstants.ShooterMotorConstants3.shootingPos));
+        endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
+        endeffectorController.y().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants2.shootingVel));
+        endeffectorController.b().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants3.shootingVel));
         endeffectorController.a().onTrue(new MoveShooterMotor(0));
 
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
@@ -129,7 +137,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-       joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+       joystick.a().onTrue(drivetrain.applyRequest(() -> brake));
 
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
@@ -151,10 +159,16 @@ public class RobotContainer {
     }
 public void configureAuto() {
     autoChooser = new SendableChooser<Command>();
-    autoChooser.setDefaultOption("TimedTaxiNothing", new TaxiNothing());
-    autoChooser.addOption("TimedTaxiCenter", new TaxiCenter());
-    autoChooser.addOption("TimedTaxiRight", new TaxiRSide());
-        autoChooser.addOption("TimedTaxiLeft", new TaxiLSide());
+    autoChooser.setDefaultOption("Nothing", new TaxiNothing());
+    // autoChooser.addOption("CenterShoot", new TaxiCenter());
+    // autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
+    // autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
+    // autoChooser.addOption("RightShoot", new TaxiRSide());
+    // autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
+    // autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
+    // autoChooser.addOption("LeftShoot", new TaxiLSide());
+    // autoChooser.addOption("LeftAttack", new TaxiLAttack());
+    // autoChooser.addOption("RightAttack", new TaxiRAttack());
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
 }

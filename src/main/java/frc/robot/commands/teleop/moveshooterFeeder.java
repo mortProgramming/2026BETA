@@ -12,7 +12,7 @@ public class MoveShooterFeeder extends Command {
             addRequirements(m_moveshooterFeeder);
     }
     public void initialize() {
-
+        
     }
     public void execute() {
         m_moveshooterFeeder.setSpeed(speed);

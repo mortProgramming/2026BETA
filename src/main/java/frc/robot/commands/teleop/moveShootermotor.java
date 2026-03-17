@@ -6,7 +6,8 @@ public class MoveShooterMotor extends Command {
 
 public ShooterMotor m_shooterMotor;
 public double speed;
-public MoveShooterMotor(double speed){
+public double targetRPM;
+public MoveShooterMotor(double speed) {
     m_shooterMotor = ShooterMotor.getInstance();
     addRequirements(m_shooterMotor);
     this.speed=speed;
@@ -18,7 +19,6 @@ public MoveShooterMotor(double speed){
 
     public void execute() {
         m_shooterMotor.setSpeed(speed);
-
     }
     public void end(boolean interrupted) {
         m_shooterMotor.stop();

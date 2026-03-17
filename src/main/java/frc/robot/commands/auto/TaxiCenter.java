@@ -17,12 +17,12 @@ import frc.robot.Constants.PhysicalConstants.ShooterMotorConstantsauto;
           new ParallelCommandGroup(
             new TimedIntake(20,PhysicalConstants.IntakeConstants.intakePos),
             new SequentialCommandGroup(
-              new TimedDrive(2, 0, -1,-0),
+              new TimedDrive(2, 0, -1,0),
               new ParallelCommandGroup(
                 new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingPos)),
+                new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto.shootingVel)),
               new ParallelCommandGroup(
-                  new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingPos),
+                  new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto.shootingVel),
                   new TimedFeed(3, PhysicalConstants.ShooterFeederConstants.feedingPos))
         )
         )
@@ -35,10 +35,10 @@ import frc.robot.Constants.PhysicalConstants.ShooterMotorConstantsauto;
         //        new TimedDrive(1.5, 0, -2,0), 
         //          new TimedDrive(1.5, 0, 2,0), 
         //                         new SequentialCommandGroup(
-        //                 new TimedShoot(3, PhysicalConstants.ShooterMotorConstants2.shootingPos)),
+        //                 new TimedShoot(3, PhysicalConstants.ShooterMotorConstants2.shootingVel)),
         //             new ParallelCommandGroup(
         //                   new TimedDrive(1, 0, 0,6), 
-        //                 new TimedShoot(3, PhysicalConstants.ShooterMotorConstants2.shootingPos),
+        //                 new TimedShoot(3, PhysicalConstants.ShooterMotorConstants2.shootingVel),
         //                 new TimedFeed(3, PhysicalConstants.ShooterFeederConstants.feedingPos))
         //        )
 

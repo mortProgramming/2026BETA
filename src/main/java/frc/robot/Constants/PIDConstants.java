@@ -11,4 +11,22 @@ public final class PIDConstants{
         public static final double kD2 = 0.0; //If spas out increase kD
 
     }
+    public static final class ShooterMotorConstants {
+        // public static final double kP = 0.1; //first increase, will be the largest value
+        // public static final double kI = 0.0; //stays close to zero
+        // public static final double kD = 0.0; //If spas out increase kD
+        // public static final double kS = 0.2; // Static gain, adjust based on your system's characteristics
+        // public static final double kV = 0.1; // Velocity gain, adjust based
+        // public static final double kA = 0.01; // Acceleration gain, adjust based on your system's characteristics
+        // public static final double SlewRateLimiter = 0.5; // Adjust the rate limit as needed
+
+        public static final double kP = 0.00001; //first increase, will be the largest value
+        public static final double kI = 0.00001; //stays close to zero
+        public static final double kD = 0.00001; //If spas out increase kD
+        public static final double kS = 0.2 /12; // Static gain, adjust based on your system's characteristics
+        public static final double kV = 0.00005 / 12; // Velocity gain, adjust based
+        public static final double kA = 0; // Acceleration gain, adjust based on your system's characteristics
+        public static final double SlewRateLimiter = 0.5; // Adjust the rate limit as needed
+
+  }
 }
