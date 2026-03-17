@@ -1,4 +1,6 @@
 package frc.robot.commands.teleop;
+import com.ctre.phoenix6.SignalLogger;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 public class MoveIntake extends Command {
@@ -10,6 +12,7 @@ public class MoveIntake extends Command {
         addRequirements(m_intake);
     }
     public void initialize() {
+        SignalLogger.stop();
     }
     public void execute() {
         m_intake.setSpeed(m_speed);
