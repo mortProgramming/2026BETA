@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
         public TaxiRSide() {
         addCommands(
           new ParallelCommandGroup(
-            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakePos),
+            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakeNeg),
             new SequentialCommandGroup(
               new TimedDrive(2, 0, -1,-0),
               new ParallelCommandGroup(
