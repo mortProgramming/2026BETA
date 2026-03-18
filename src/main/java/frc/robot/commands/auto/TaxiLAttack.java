@@ -13,20 +13,16 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
     public class TaxiLAttack extends SequentialCommandGroup {
         public TaxiLAttack() {
                addCommands(
-          new ParallelCommandGroup(
-            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakePos),
-            new SequentialCommandGroup(
+          new SequentialCommandGroup(
               new TimedDrive(2, 0, 2,-0),
-              new ParallelCommandGroup(
-                new SequentialCommandGroup( 
-                new TimedDrive(2, 0, 0,-1), 
-                  new TimedDrive(2, 2.5, 0,0), 
-                    new TimedDrive(2, 0, 0,1)
-        )
-        )
-        )
-          )
-               )
+                new ParallelCommandGroup(
+                  new TimedDrive(2, 2.5, 1.5,0)),
+                new ParallelCommandGroup(
+                  new TimedDrive(2, -2.5, 0,0)),
+                new ParallelCommandGroup(
+                  new TimedDrive(2, 2.5, -1.5,0)) 
+                  )
+               );
           //   new ParallelCommandGroup(     
             
           //          new SequentialCommandGroup(          

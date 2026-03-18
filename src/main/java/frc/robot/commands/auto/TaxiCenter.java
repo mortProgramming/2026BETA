@@ -15,7 +15,7 @@ import frc.robot.Constants.PhysicalConstants.ShooterMotorConstantsauto;
         public TaxiCenter() {
                addCommands(
           new ParallelCommandGroup(
-            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakePos),
+            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakeNeg),
             new SequentialCommandGroup(
               new TimedDrive(2, 0, -1,0),
               new ParallelCommandGroup(
@@ -29,7 +29,7 @@ import frc.robot.Constants.PhysicalConstants.ShooterMotorConstantsauto;
         )
             
         //     new ParallelCommandGroup(     
-        //    new TimedIntake(12,PhysicalConstants.IntakeConstants.intakePos),
+        //    new TimedIntake(12,PhysicalConstants.IntakeConstants.intakeNeg),
         //            new SequentialCommandGroup(          
         //       new TimedDrive(4, -2, 0,2), 
         //        new TimedDrive(1.5, 0, -2,0), 

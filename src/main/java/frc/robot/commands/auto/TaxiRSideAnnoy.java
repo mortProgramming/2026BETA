@@ -14,24 +14,28 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
         public TaxiRSideAnnoy() {
                addCommands(
           new ParallelCommandGroup(
-            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakePos),
+            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakeNeg),
             new SequentialCommandGroup(
-              new TimedDrive(2, 0, 2,0),
-              new ParallelCommandGroup(
-                new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                new SequentialCommandGroup(
-                new TimedDrive(2, 0, 0,1), 
-                  new TimedDrive(2, -2.5, 0,0), 
-                    new TimedDrive(2, 0, 0,-1), 
                 new ParallelCommandGroup(
-                new TimedShoot(3, PhysicalConstants.ShooterMotorConstants3.shootingVel)))
+              new TimedDrive(2, 0, -2.5,0),
+              new TimedIntakeArm(2, PhysicalConstants.IntakeArmConstants.intakeArmPos)
+                ),
+              new SequentialCommandGroup(  
+                  new TimedDrive(2, 2.2, 0,0), 
+                   new TimedDrive(2, 0, 0,1), 
+                new ParallelCommandGroup(
+                new TimedShoot(2, PhysicalConstants.ShooterMotorConstants2.shootingVel),
+                new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmNeg))
+
               ),
               new ParallelCommandGroup(
-                  new TimedShoot(10, PhysicalConstants.ShooterMotorConstants3.shootingVel),
+                  new TimedShoot(10, PhysicalConstants.ShooterMotorConstants.shootingVel),
                   new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingPos))
-        )
-        )
-        )
+            )
+            ) 
+          )
+          
+        
           //   new ParallelCommandGroup(     
             
           //          new SequentialCommandGroup(          

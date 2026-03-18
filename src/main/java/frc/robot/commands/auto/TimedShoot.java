@@ -15,11 +15,13 @@ public class TimedShoot extends Command {
     public Timer timer;
     public double speed;
     public double time;
-    public TimedShoot(double time, double m_speed) {
+    public double velocity;
+    public double RPM; 
+    public TimedShoot(double time, double velocity) {
         timer=new Timer();
         shooterMotor=ShooterMotor.getInstance();
         addRequirements(shooterMotor);
-        speed=m_speed;
+        RPM=velocity;
         this.time=time;
     }
     public void initialize() {
@@ -27,7 +29,7 @@ public class TimedShoot extends Command {
         timer.start();
     }
     public void execute() {
-        shooterMotor.setSpeed(speed);
+        shooterMotor.setShooterSpeedRPM(RPM);
     }
     public void end(boolean interrupted) {
         shooterMotor.setSpeed(0);

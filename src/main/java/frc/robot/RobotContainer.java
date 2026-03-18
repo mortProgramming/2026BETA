@@ -160,15 +160,15 @@ public class RobotContainer {
 public void configureAuto() {
     autoChooser = new SendableChooser<Command>();
     autoChooser.setDefaultOption("Nothing", new TaxiNothing());
-    // autoChooser.addOption("CenterShoot", new TaxiCenter());
+     autoChooser.addOption("CenterShoot", new TaxiCenter());
     // autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
-    // autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
-    // autoChooser.addOption("RightShoot", new TaxiRSide());
-    // autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
+     autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
+     autoChooser.addOption("RightShoot", new TaxiRSide());
+     autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
     // autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
-    // autoChooser.addOption("LeftShoot", new TaxiLSide());
-    // autoChooser.addOption("LeftAttack", new TaxiLAttack());
-    // autoChooser.addOption("RightAttack", new TaxiRAttack());
+     autoChooser.addOption("LeftShoot", new TaxiLSide());
+    autoChooser.addOption("LeftAttack", new TaxiLAttack());
+   // autoChooser.addOption("RightAttack", new TaxiRAttack());
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
 }
