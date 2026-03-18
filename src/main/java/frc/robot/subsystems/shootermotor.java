@@ -111,6 +111,10 @@ public class ShooterMotor extends SubsystemBase {
             ));
         }
 
+        public PIDController getPidController() {
+            return pid;
+        }
+
 
     // Bum code
 

@@ -33,12 +33,12 @@ public final class PhysicalConstants {
         public static final double shootingVel = 3256.32;
     }    
         public static final class ShooterMotorConstantsauto2 {
-        public static final double shootingVel = 3493.76;
+       public static final double shootingVel = 3493.76;
     }   
 
   //  public static final class ClimberConstants {
    //     public static final double climbPos = 1;
-   //     public static final double restPos = 0;
+   //     public static final   double restPos = 0;
     }
     /*public final class ShooterTimer {
         public static final double m_timer = 10; 

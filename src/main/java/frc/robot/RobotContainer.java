@@ -35,10 +35,12 @@ import frc.robot.commands.auto.TaxiLAttack;
 import frc.robot.commands.auto.TaxiLSide;
 import frc.robot.commands.auto.TaxiLSideAnnoy;
 import frc.robot.commands.auto.TaxiLSideDepot;
+import frc.robot.commands.auto.TaxiLeftPark;
 import frc.robot.commands.auto.TaxiNothing;
 import frc.robot.commands.auto.TaxiRAttack;
 import frc.robot.commands.auto.TaxiRSide;
 import frc.robot.commands.auto.TaxiRSideAnnoy;
+import frc.robot.commands.auto.TaxiRightPark;
 import frc.robot.commands.auto.TimedDrive;
 import frc.robot.commands.teleop.MoveShooterFeeder;
 import frc.robot.commands.teleop.MoveIntakeArm;
@@ -161,14 +163,16 @@ public void configureAuto() {
     autoChooser = new SendableChooser<Command>();
     autoChooser.setDefaultOption("Nothing", new TaxiNothing());
      autoChooser.addOption("CenterShoot", new TaxiCenter());
-    // autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
+    autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
      autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
      autoChooser.addOption("RightShoot", new TaxiRSide());
      autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
-    // autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
+     autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
      autoChooser.addOption("LeftShoot", new TaxiLSide());
     autoChooser.addOption("LeftAttack", new TaxiLAttack());
-   // autoChooser.addOption("RightAttack", new TaxiRAttack());
+        autoChooser.addOption("LeftPark", new TaxiLeftPark());
+            autoChooser.addOption("RightPark", new TaxiRightPark());
+   autoChooser.addOption("RightAttack", new TaxiRAttack());
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
 }

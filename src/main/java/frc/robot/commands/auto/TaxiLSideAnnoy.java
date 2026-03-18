@@ -22,17 +22,25 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
                 ),
               new SequentialCommandGroup(  
                   new TimedDrive(2, 2.2, 0,0), 
-                   new TimedDrive(2, 0, 0,-1), 
                 new ParallelCommandGroup(
-                new TimedShoot(2, PhysicalConstants.ShooterMotorConstants.shootingVel),
-                new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmNeg))
-              ),
+                new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
+                new TimedDrive(2, -2.2, 0,0)
+                  ),
+                  new SequentialCommandGroup(
+            new TimedDrive(2, 0, -2.5,-0),
+                new ParallelCommandGroup(
+            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakeNeg),
+            new SequentialCommandGroup(
+              new TimedDrive(2, 0, 1,-0),
               new ParallelCommandGroup(
-                  new TimedShoot(10, PhysicalConstants.ShooterMotorConstants.shootingVel),
+                new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmPos),
+                new TimedDrive(2, 0, 0,0.58),
+                new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel)),
+              new ParallelCommandGroup(
+                  new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel),
                   new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingPos))
-            )
-            ) 
-          )
+                  )
+              ))))));
           
         
           //   new ParallelCommandGroup(     
