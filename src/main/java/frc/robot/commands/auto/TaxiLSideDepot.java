@@ -18,17 +18,17 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
             new SequentialCommandGroup(
               new TimedDrive(2, 0, -1,-0),
               new ParallelCommandGroup(
-                new TimedDrive(2, 0, 0,-2),
-                new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
+                new TimedDrive(2, 0, 0, -1),
+                new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos)),
                 new SequentialCommandGroup(
-                    new TimedDrive(1, 0, -1,-0),
-                    new TimedDrive(1, 0, 1,-0),
-                    new TimedDrive(2, 0, 0,2),
+                    new TimedDrive(2, 0.75, 0,-0),
+                    new TimedDrive(2, -0.75, 0,-0),
+                    new TimedDrive(2, 0, 0,0.95),
                         new ParallelCommandGroup(
-                            new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
+                            new TimedIntakeArm(1, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
                             new SequentialCommandGroup(
                                 new ParallelCommandGroup(
-                                    new TimedDrive(2, 0, 0,-0.42),
+                                    new TimedDrive(2, 0, 0,0.58),
                                     new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel)),
                                 new ParallelCommandGroup(
                                     new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel),
@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
         )
         )
           )
-               ));
+               );
           //   new ParallelCommandGroup(     
             
           //          new SequentialCommandGroup(          

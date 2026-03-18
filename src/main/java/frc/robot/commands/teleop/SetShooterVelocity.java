@@ -15,6 +15,7 @@ public class SetShooterVelocity extends Command {
         RPM=velocity;
     }
     public void initialize(){
+        shooter.getPidController().reset();
     }
     public void execute(){
         shooter.setShooterSpeedRPM(RPM);

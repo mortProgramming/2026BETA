@@ -15,7 +15,7 @@ public class TimedShoot extends Command {
     public Timer timer;
     public double speed;
     public double time;
-    public double velocity;
+    // public double velocity;
     public double RPM; 
     public TimedShoot(double time, double velocity) {
         timer=new Timer();
@@ -27,6 +27,8 @@ public class TimedShoot extends Command {
     public void initialize() {
         timer.reset();
         timer.start();
+
+        shooterMotor.getPidController().reset();
     }
     public void execute() {
         shooterMotor.setShooterSpeedRPM(RPM);
