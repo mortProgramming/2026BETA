@@ -13,6 +13,8 @@ public class SetShooterVelocity extends Command {
     public SetShooterVelocity(double velocity) {
         shooter = ShooterMotor.getInstance();
         RPM=velocity;
+
+        addRequirements(shooter);
     }
     public void initialize(){
         shooter.getPidController().reset();

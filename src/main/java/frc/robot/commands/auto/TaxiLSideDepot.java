@@ -21,23 +21,27 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
                 new TimedDrive(2, 0, 0, -1),
                 new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos)),
                 new SequentialCommandGroup(
-                    new TimedDrive(2, 0.75, 0,-0),
+                    new ParallelCommandGroup(
+                    new TimedDrive(5, 0.3, 0,-0),
+                    new TimedIntakeArm(5, PhysicalConstants.IntakeArmConstants.intakeArmPosauto)
+                    ),
                     new TimedDrive(2, -0.75, 0,-0),
                     new TimedDrive(2, 0, 0,0.95),
-                        new ParallelCommandGroup(
-                            new TimedIntakeArm(1, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
+                            new TimedIntakeArm(1.4, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
                             new SequentialCommandGroup(
                                 new ParallelCommandGroup(
-                                    new TimedDrive(2, 0, 0,0.58),
-                                    new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel)),
+                                    new TimedDrive(2, 0, 0,0.51),
+                                    new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel),
+                                    new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmPos)
+                                    ),
                                 new ParallelCommandGroup(
-                                    new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel),
+                                    new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel),
                                     new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingPos)))
                 )
         )
         )
           )
-               );
+               ;
           //   new ParallelCommandGroup(     
             
           //          new SequentialCommandGroup(          
