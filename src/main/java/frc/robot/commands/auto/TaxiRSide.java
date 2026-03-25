@@ -12,20 +12,18 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
     public class TaxiRSide extends SequentialCommandGroup {
         public TaxiRSide() {
         addCommands(
-          new ParallelCommandGroup(
-            new TimedIntake(20,PhysicalConstants.IntakeConstants.intakeNeg),
             new SequentialCommandGroup(
               new TimedDrive(2, 0, -1,-0),
               new ParallelCommandGroup(
                 new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                new TimedDrive(2, 0, 0,0.42),
+                new TimedDrive(2, 0, 0,-0.58),
                 new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel)),
               new ParallelCommandGroup(
                   new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel),
                   new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingPos))
         )
         )
-        )
+        
                
         
           //          new SequentialCommandGroup(          

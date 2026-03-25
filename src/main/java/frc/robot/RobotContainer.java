@@ -32,14 +32,18 @@ import frc.robot.Constants.TunerConstants;
 import frc.robot.commands.auto.TaxiCenter;
 import frc.robot.commands.auto.TaxiCenterDepot;
 import frc.robot.commands.auto.TaxiLAttack;
+import frc.robot.commands.auto.TaxiLCollectHalf;
 import frc.robot.commands.auto.TaxiLSide;
 import frc.robot.commands.auto.TaxiLSideAnnoy;
 import frc.robot.commands.auto.TaxiLSideDepot;
+import frc.robot.commands.auto.TaxiLeftHoard;
 import frc.robot.commands.auto.TaxiLeftPark;
 import frc.robot.commands.auto.TaxiNothing;
 import frc.robot.commands.auto.TaxiRAttack;
+import frc.robot.commands.auto.TaxiRCollectHalf;
 import frc.robot.commands.auto.TaxiRSide;
 import frc.robot.commands.auto.TaxiRSideAnnoy;
+import frc.robot.commands.auto.TaxiRightHoard;
 import frc.robot.commands.auto.TaxiRightPark;
 import frc.robot.commands.auto.TimedDrive;
 import frc.robot.commands.teleop.MoveShooterFeeder;
@@ -106,11 +110,15 @@ public class RobotContainer {
         // endeffectorController.pov(180).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
         endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
+        endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
 
         endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
         endeffectorController.y().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants2.shootingVel));
         endeffectorController.b().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants3.shootingVel));
         endeffectorController.a().onTrue(new MoveShooterMotor(0));
+
+        //evan test
+        // endeffectorController.b().onTrue(new SetShooterVelocity(15));
 
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
@@ -161,18 +169,22 @@ public class RobotContainer {
     }
 public void configureAuto() {
     autoChooser = new SendableChooser<Command>();
-    autoChooser.setDefaultOption("Nothing", new TaxiNothing());
+   autoChooser.setDefaultOption("Nothing", new TaxiNothing());
      autoChooser.addOption("CenterShoot", new TaxiCenter());
     autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
-     autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
+ autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
      autoChooser.addOption("RightShoot", new TaxiRSide());
-     autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
+    autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
      autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
      autoChooser.addOption("LeftShoot", new TaxiLSide());
-    autoChooser.addOption("LeftAttack", new TaxiLAttack());
-        autoChooser.addOption("LeftPark", new TaxiLeftPark());
-            autoChooser.addOption("RightPark", new TaxiRightPark());
+  autoChooser.addOption("LeftAttack", new TaxiLAttack());
+      autoChooser.addOption("LeftPark", new TaxiLeftPark());
+          autoChooser.addOption("RightPark", new TaxiRightPark());
    autoChooser.addOption("RightAttack", new TaxiRAttack());
+   autoChooser.addOption("HalfLeftCollect", new TaxiLCollectHalf());
+      autoChooser.addOption("HalfRightCollect", new TaxiRCollectHalf());
+           //   autoChooser.addOption("RightHoard", new TaxiRightHoard());
+   //autoChooser.addOption("LeftHoard", new TaxiLeftHoard());
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
 }

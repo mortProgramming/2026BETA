@@ -108,7 +108,8 @@ public class ShooterMotor extends SubsystemBase {
                 RPM / 6784 +
                 feedforward.calculate(RPM) +
                 pid.calculate(getSpeedRPM(), RPM)
-            ));
+            )         
+            ); 
         }
 
         public PIDController getPidController() {
@@ -141,9 +142,9 @@ public class ShooterMotor extends SubsystemBase {
          @Override
        public void periodic() {
         //  shooter.setVoltage(slewLimitedSpeed(PIDConstants.ShooterMotorConstants.SlewRateLimiter) * ROBOT_VOLTAGE);
-            shootermotor.setSpeed(RPM);
+            // shootermotor.setSpeed(RPM);
             // shooter.setVoltage();
-        SmartDashboard.putNumber("Shooter Speed RPM", RPMAverager.calculate(getSpeedRPM()));
+        SmartDashboard.putNumber("Shooter Speed RPM", RPMAverager.calculate(getSpeedRPM()));  
        }
 
        public double getSpeedRPM() {
