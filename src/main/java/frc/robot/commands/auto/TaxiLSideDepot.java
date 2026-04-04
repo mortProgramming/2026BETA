@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
                             new TimedIntakeArm(1.4, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
                             new SequentialCommandGroup(
                                 new ParallelCommandGroup(
-                                    new TimedDrive(2, 0, 0,0.51),
+                                    new TimedDrive(1, 0, 0,1.25),
                                     new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel),
                                     new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmPos)
                                     ),

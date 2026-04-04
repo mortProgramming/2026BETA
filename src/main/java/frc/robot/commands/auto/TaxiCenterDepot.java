@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
                      new TimedDrive(2, 0, 0,1),
                                  new ParallelCommandGroup(
                                      new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                                     new TimedDrive(2, 0, 0,0.51),
-                                     new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel)
+                                     new TimedDrive(1, 0, 0,1.02),
+                                     new TimedShoot(2, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel)
                                      ),
                                  new ParallelCommandGroup(
                                      new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel),

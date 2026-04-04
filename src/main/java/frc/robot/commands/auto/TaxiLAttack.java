@@ -1,4 +1,6 @@
 package frc.robot.commands.auto;
+import static frc.robot.Constants.PhysicalConstants.IntakeArmConstants.intakeArmNeg;
+
 import javax.imageio.plugins.tiff.TIFFField;
 import frc.robot.commands.auto.TimedDrive;
 import frc.robot.commands.teleop.MoveIntakeArm;
@@ -16,24 +18,24 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
           new SequentialCommandGroup(
               new TimedDrive(2, 0, 2,-0),
                 new ParallelCommandGroup(
-                  new TimedDrive(2, 1.25, 0.6,0)),
+                  new TimedDrive(1, 2, 0.4,0)),
+                  new WaitCommand(0.5),
                 new ParallelCommandGroup(
-                  new TimedDrive(2, -1.25, 0,0)),
+                  new TimedDrive(1, -2, 0.3,0),
+                  new TimedIntakeArm(1, PhysicalConstants.IntakeArmConstants.intakeArmNeg)),
+                  new WaitCommand(0.5),
+                  new TimedDrive(1,2 , 0.3, 0),
+                  new WaitCommand(0.5),
                 new ParallelCommandGroup(
-                  new TimedDrive(2, 1.25, -0.6,0)) 
-                  ),
-                  new ParallelCommandGroup(
-                  new TimedDrive(2, -2, 0,0)
-                  ),
-                  new TimedDrive(2, 0, -2,-0),
-              new TimedDrive(2, 0, -1,-0),
-              new ParallelCommandGroup(
-                new TimedIntakeArm(0.8, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                new TimedDrive(1, 0, 0,3.01),
-                new TimedShoot(2, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel)),
-              new ParallelCommandGroup(
-                  new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel),
-                  new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingPos))
-               );
-        }
+                  new TimedDrive(1, 0, -2,0)),
+                  new TimedDrive(1, 0, 0, 2)) 
+          );
+                      // new ParallelCommandGroup(
+              //   new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
+              //   new TimedDrive(2, 0, 0,0.58),
+              //   new TimedShoot(3, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel)),
+              // new ParallelCommandGroup(
+              //     new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto2.shootingVel),
+              //     new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingauto)));   
+            }
       }
