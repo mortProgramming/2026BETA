@@ -6,20 +6,22 @@ import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
 
 public class SetIntakeArm extends Command {
     public IntakeArm intakeArm;
-    public double setpoint;
+    public double targetPosition;
     public SetIntakeArm(double position) {
         intakeArm = IntakeArm.getInstance();
-        setpoint=position;
+        targetPosition=position;
     }
     public void initialize(){
+        
     }
     public void execute(){
-        intakeArm.setSetpoint(setpoint);
+        intakeArm.setArmPosition(targetPosition);
     }
     public void end(boolean interupted) {
         intakeArm.stop();
     }
+
     public boolean isFinished() {
-        return intakeArm.atSetpoint();
+        return false;
     }
 }

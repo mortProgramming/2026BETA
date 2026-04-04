@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.PIDConstants;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.*;
 // import frc.robot.Constants.PhysicalConstants.ShooterFeederConstants;
@@ -110,10 +111,12 @@ public class RobotContainer {
         endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
         endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
 
-        // endeffectorController.pov(0).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
-        // endeffectorController.pov(180).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
-        endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
-        endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
+
+         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
+         endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
+        // endeffectorController.pov(180).whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+        // endeffectorController.pov(0).whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
+        
         endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
 
         endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
