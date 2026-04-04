@@ -18,20 +18,21 @@ public final class PhysicalConstants {
     }
     
     public static final class ShooterFeederConstants {
-        public static final double feedingPos =  0.6;
+        public static final double feedingPos =  1;
         public static final double feedingauto = 1; 
         public static final double feedingauto2 = 0.75; 
         public static final double feedingNeg = -0.1;
     }
     
     public static final class ShooterMotorConstants {
-        public static final double shootingVel = 2895;
+        //public static final double shootingVel = 2650;
+        public static final double shootingVel = 2470;
     }
     public static final class ShooterMotorConstants2 {
-        public static final double shootingVel = 3395.52;
+        public static final double shootingVel = 3173;
     }
     public static final class ShooterMotorConstants3 {
-        public static final double shootingVel = 4070.4;
+        public static final double shootingVel = 3330;
     }    
 
         public static final class ShooterMotorConstantsauto {
