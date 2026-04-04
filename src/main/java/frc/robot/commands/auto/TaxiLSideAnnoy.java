@@ -17,29 +17,29 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
             new TimedIntake(6,PhysicalConstants.IntakeConstants.intakeNeg),
             new SequentialCommandGroup(
                 new ParallelCommandGroup(
-              new TimedDrive(2, 0, 2.5,0),
+              new TimedDrive(2.1, 0, 2.5,0),
               new TimedIntakeArm(2, PhysicalConstants.IntakeArmConstants.intakeArmPos)
                 ),
                 new TimedDrive(0.5, 0, 0,0.5),
                 new ParallelCommandGroup(
                   new TimedDrive(4, 1.1, 0,0), 
-                  new TimedIntakeArm(4, PhysicalConstants.IntakeArmConstants.intakeArmPosauto)
+                  new TimedIntakeArm(4, PhysicalConstants.IntakeArmConstants.intakeArmPosautos)
                 ),
                 new ParallelCommandGroup(
                 new TimedIntakeArm(1.2, PhysicalConstants.IntakeArmConstants.intakeArmNeg),
-                new TimedDrive(2, -2.2, 0,0)
+                new TimedDrive(1.9, -2.2, 0,0)
                 ),
-            new TimedDrive(2, 0, -2.5,-0),
+            new TimedDrive(2.1, 0, -2.5,-0),
               new TimedDrive(1, 0, -2,-0),
               new ParallelCommandGroup(
                 new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                new TimedDrive(1, 0, 0,1.225),
+                new TimedDrive(1, 0, 0,1.25),
                 new TimedShoot(2, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel)
                 ),
                 new ParallelCommandGroup(
                 new ParallelCommandGroup(
                   new TimedShoot(10, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel),
-                  new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingPos))
+                  new TimedFeed(10, PhysicalConstants.ShooterFeederConstants.feedingauto))
                 ,
                   new SequentialCommandGroup(
                     new WaitCommand(4),
@@ -62,7 +62,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
           //           new ParallelCommandGroup(
           //                 new TimedDrive(1, 0, 0,6), 
           //               new TimedShoot(3, PhysicalConstants.ShooterMotorConstants2.shootingVel),
-          //               new TimedFeed(3, PhysicalConstants.ShooterFeederConstants.feedingPos))
+          //               new TimedFeed(3, PhysicalConstants.ShooterFeederConstants.feedingauto))
               // )
 
          //  )

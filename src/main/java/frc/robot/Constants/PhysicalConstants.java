@@ -12,18 +12,20 @@ public final class PhysicalConstants {
         public static final double intakeArmPosauto = 0.1;
                 public static final double intakeArmPosautos = 0.05;
         public static final double intakeArmNeg = -0.3;
-        public static final double intakeArmNegauto = -0.5;
+        public static final double intakeArmNegauto = -0.05;
         public static final double outPosition = 28.02;
         public static final double inPosition = 0;
     }
     
     public static final class ShooterFeederConstants {
-        public static final double feedingPos =  1;
+        public static final double feedingPos =  0.6;
+        public static final double feedingauto = 1; 
+        public static final double feedingauto2 = 0.75; 
         public static final double feedingNeg = -0.1;
     }
     
     public static final class ShooterMotorConstants {
-        public static final double shootingVel = 2932;
+        public static final double shootingVel = 2895;
     }
     public static final class ShooterMotorConstants2 {
         public static final double shootingVel = 3395.52;
@@ -42,6 +44,10 @@ public final class PhysicalConstants {
             public static final class ShooterMotorConstantsauto3 {
         public static final double shootingVel = 3010;
     }  
+        public static final class ShooterMotorConstantsauto4 {
+        public static final double shootingVel = 2880;
+    }  
+
 
   //  public static final class ClimberConstants {
    //     public static final double climbPos = 1;

@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
           //           new ParallelCommandGroup(
           //                 new TimedDrive(1, 0, 0,6), 
           //               new TimedShoot(3, PhysicalConstants.ShooterMotorConstants2.shootingVel),
-          //               new TimedFeed(3, PhysicalConstants.ShooterFeederConstants.feedingPos))
+          //               new TimedFeed(3, PhysicalConstants.ShooterFeederConstants.feedingauto))
               // )
 
          //  )

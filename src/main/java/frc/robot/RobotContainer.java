@@ -31,11 +31,14 @@ import frc.robot.commands.teleop.MoveShooterMotor;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.commands.auto.TaxiCenter;
 import frc.robot.commands.auto.TaxiCenterDepot;
+import frc.robot.commands.auto.TaxiHalfLeftCollectShort;
+import frc.robot.commands.auto.TaxiHalfRightCollectShort;
 import frc.robot.commands.auto.TaxiLAttack;
 import frc.robot.commands.auto.TaxiLCollectHalf;
 import frc.robot.commands.auto.TaxiLSide;
 import frc.robot.commands.auto.TaxiLSideAnnoy;
 import frc.robot.commands.auto.TaxiLSideDepot;
+import frc.robot.commands.auto.TaxiLeftCollectShort;
 import frc.robot.commands.auto.TaxiLeftHoard;
 import frc.robot.commands.auto.TaxiLeftPark;
 import frc.robot.commands.auto.TaxiNothing;
@@ -43,6 +46,7 @@ import frc.robot.commands.auto.TaxiRAttack;
 import frc.robot.commands.auto.TaxiRCollectHalf;
 import frc.robot.commands.auto.TaxiRSide;
 import frc.robot.commands.auto.TaxiRSideAnnoy;
+import frc.robot.commands.auto.TaxiRightCollectShort;
 import frc.robot.commands.auto.TaxiRightHoard;
 import frc.robot.commands.auto.TaxiRightPark;
 import frc.robot.commands.auto.TimedDrive;
@@ -147,7 +151,8 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-       joystick.a().onTrue(drivetrain.applyRequest(() -> brake));
+       joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        joystick.rightBumper().onTrue(drivetrain.applyRequest(() -> brake));
 
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
@@ -183,6 +188,11 @@ public void configureAuto() {
    autoChooser.addOption("RightAttack", new TaxiRAttack());
    autoChooser.addOption("HalfLeftCollect", new TaxiLCollectHalf());
       autoChooser.addOption("HalfRightCollect", new TaxiRCollectHalf());
+
+      autoChooser.addOption("HalfRightCollectShort", new TaxiHalfRightCollectShort());
+            autoChooser.addOption("HalfLeftCollectShort", new TaxiHalfLeftCollectShort());
+                        autoChooser.addOption("LeftCollectShort", new TaxiLeftCollectShort());
+                  autoChooser.addOption("RightCollectShort", new TaxiRightCollectShort());
            //   autoChooser.addOption("RightHoard", new TaxiRightHoard());
    //autoChooser.addOption("LeftHoard", new TaxiLeftHoard());
     SmartDashboard.putData("Auto Chooser", autoChooser);
