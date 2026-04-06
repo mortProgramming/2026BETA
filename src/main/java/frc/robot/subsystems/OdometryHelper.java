@@ -1,0 +1,108 @@
+package frc.robot.subsystems;
+
+import static frc.robot.Constants.PhysicalConstants.Field.BLUE_HUB_X;
+import static frc.robot.Constants.PhysicalConstants.Field.BLUE_HUB_Y;
+import static frc.robot.Constants.PhysicalConstants.Field.RED_HUB_X;
+import static frc.robot.Constants.PhysicalConstants.Field.RED_HUB_Y;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class OdometryHelper extends SubsystemBase {
+    private static OdometryHelper instance;
+
+    private final CommandSwerveDrivetrain drivetrain;
+    private final Field2d field;
+    private final Limelight limelightOne;
+
+    private final Translation2d Redhub = new Translation2d(RED_HUB_X, RED_HUB_Y);
+    private final Translation2d Bluehub = new Translation2d(BLUE_HUB_X, BLUE_HUB_Y);
+
+    public OdometryHelper(CommandSwerveDrivetrain drivetrain, Limelight limelightOne) {
+        this.drivetrain = drivetrain;
+        this.limelightOne = limelightOne;
+        this.field = new Field2d();
+
+        SmartDashboard.putData("Field", field);
+    }
+
+    @Override
+    public void periodic() {
+        setFieldObj();
+
+        // FIX 1: Update limelight robot orientation BEFORE fusing vision measurements
+        // so MegaTag2 has the correct yaw when it estimates pose
+        Vision.updateRobotOrientation(drivetrain);
+
+        limelightOne.getMeasurement(drivetrain.getState().Pose).ifPresent(measurement -> {
+            drivetrain.addVisionMeasurement(
+                measurement.poseEstimate.pose,
+                measurement.poseEstimate.timestampSeconds,
+                measurement.standardDeviations
+            );
+        });
+
+        Pose2d robotPose = drivetrain.getState().Pose;
+
+        SmartDashboard.putNumber("Robot X", robotPose.getX());
+        SmartDashboard.putNumber("Robot Y", robotPose.getY());
+        SmartDashboard.putNumber("Robot Heading", robotPose.getRotation().getDegrees());
+
+        field.setRobotPose(robotPose);
+
+        SmartDashboard.putNumber("Distance To Target", getDistanceToTarget());
+        SmartDashboard.putNumber("Distance from hub", getDistanceToHub());
+    }
+
+    // FIX 2: getDistanceToTarget() now respects alliance color instead of always using Red hub
+    public double getDistanceToTarget() {
+        Pose2d pose = drivetrain.getState().Pose;
+        if (isBlue()) {
+            return pose.getTranslation().getDistance(Bluehub);
+        } else {
+            return pose.getTranslation().getDistance(Redhub);
+        }
+    }
+
+    public Pose2d getPose() {
+        return drivetrain.getState().Pose;
+    }
+
+    public static Boolean isBlue() {
+        return DriverStation.getAlliance().isPresent()
+            ? DriverStation.getAlliance().get() == Alliance.Blue
+            : true;
+    }
+
+    public Pose2d getHubTarget() {
+        if (isBlue()) {
+            return new Pose2d(BLUE_HUB_X, BLUE_HUB_Y, new Rotation2d());
+        } else {
+            return new Pose2d(RED_HUB_X, RED_HUB_Y, new Rotation2d());
+        }
+    }
+
+    public double getDistanceToHub() {
+        Pose2d pose = drivetrain.getState().Pose;
+        if (isBlue()) {
+            return pose.getTranslation().getDistance(Bluehub);
+        } else {
+            return pose.getTranslation().getDistance(Redhub);
+        }
+    }
+
+    public void setFieldObj() {
+        FieldObject2d redHub = field.getObject("Red Hub");
+        redHub.setPose(new Pose2d(RED_HUB_X, RED_HUB_Y, new Rotation2d()));
+
+        FieldObject2d blueHub = field.getObject("Blue Hub");
+        blueHub.setPose(new Pose2d(BLUE_HUB_X, BLUE_HUB_Y, new Rotation2d()));
+    }
+}
