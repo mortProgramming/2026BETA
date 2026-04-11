@@ -80,6 +80,12 @@
       "waypointRelativePos": 3.0,
       "endWaypointRelativePos": 3.0,
       "command": null
+    },
+    {
+      "name": "IntakeArmUp",
+      "waypointRelativePos": 3.0,
+      "endWaypointRelativePos": 3.0,
+      "command": null
     }
   ],
   "globalConstraints": {
