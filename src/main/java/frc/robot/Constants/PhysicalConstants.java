@@ -13,7 +13,7 @@ public final class PhysicalConstants {
                 public static final double intakeArmPosautos = 0.05;
         public static final double intakeArmNeg = -0.3;
         public static final double intakeArmNegauto = -0.05;
-        public static final double outPosition = 45.36;
+        public static final double outPosition = 28.76;
         public static final double inPosition = 0;
     }
     
