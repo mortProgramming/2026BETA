@@ -8,12 +8,12 @@ public final class PhysicalConstants {
     }
     
     public static final class IntakeArmConstants{
-        public static final double intakeArmPos = 0.2;
+        public static final double intakeArmPos =   0.2;
         public static final double intakeArmPosauto = 0.1;
                 public static final double intakeArmPosautos = 0.05;
         public static final double intakeArmNeg = -0.3;
         public static final double intakeArmNegauto = -0.05;
-        public static final double outPosition = 36.4;
+        public static final double outPosition = 32.4;
         public static final double inPosition = 0;
     }
     

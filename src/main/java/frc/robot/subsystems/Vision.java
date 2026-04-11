@@ -1,41 +1,32 @@
 package frc.robot.subsystems;
 
-
-import org.opencv.dnn.Net;
-
 import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
     private static Vision instance;
     private HttpCamera limelightOneFeed;
 
-
     private AprilTagFieldLayout fieldLayout;
 
     private NetworkTable cameraTableOne;
 
-
     private static final String[] LIMELIGHTS = {
         "limelight-one",
-
     };
 
     public static String[] getLimelights() {
@@ -45,27 +36,11 @@ public class Vision extends SubsystemBase {
     public Vision() {
         fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark);
 
-        cameraTableOne   = NetworkTableInstance.getDefault().getTable("limelight-one");
+        cameraTableOne = NetworkTableInstance.getDefault().getTable("limelight-one");
 
-
-        limelightOneFeed   = new HttpCamera("limelight-one",   "http://limelight-one.local:5801/stream.mjpeg");
-        
+        limelightOneFeed = new HttpCamera("limelight-one", "http://limelight-one.local:5801/stream.mjpeg");
 
         CameraServer.addCamera(limelightOneFeed);
-
-
-        // In the Vision constructor, after camera setup:
-        // Forward, side, up in meters (converted from inches).
-        // Replace 12.0, 0.0, 18.0 with your actual tape measure values in inches.
-//         LimelightHelpers.setCameraPose_RobotSpace(
-//             "limelight-one",
-//             -30.0 * 0.0254,   // forward — replace 12.0 with your inches measurement
-//             0.0  * 0.0254,   // side — replace 0.0 with your inches measurement
-//             18.0 * 0.0254,   // up — replace 18.0 with your inches measurement
-//             0.0,             // roll degrees
-//             0.0,             // pitch degrees
-//             0.0            // yaw degrees
-// );
     }
 
     @Override
@@ -78,7 +53,8 @@ public class Vision extends SubsystemBase {
     // ---------- Camera / Limelight Methods ----------
 
     public boolean hasTag() {
-        return cameraTableOne.getEntry("tv").getDouble(0) == 1; }
+        return cameraTableOne.getEntry("tv").getDouble(0) == 1;
+    }
 
     public int getTagId() {
         if (cameraTableOne.getEntry("tv").getDouble(0) == 1) {
@@ -86,8 +62,6 @@ public class Vision extends SubsystemBase {
         }
         return -1;
     }
-
-
 
     public double getTX() {
         if (cameraTableOne.getEntry("tv").getDouble(0) == 1) {
@@ -99,14 +73,14 @@ public class Vision extends SubsystemBase {
     public double getTY() {
         if (cameraTableOne.getEntry("tv").getDouble(0) == 1) {
             return cameraTableOne.getEntry("ty").getDouble(0);
-
         }
         return 0;
     }
-        public double getTA() {
-        if (cameraTableOne.getEntry("tv").getDouble(0) == 1) {
-            return cameraTableOne.getEntry("ty").getDouble(0);
 
+    // FIX: was incorrectly reading "ty" instead of "ta"
+    public double getTA() {
+        if (cameraTableOne.getEntry("tv").getDouble(0) == 1) {
+            return cameraTableOne.getEntry("ta").getDouble(0);
         }
         return 0;
     }
@@ -120,7 +94,7 @@ public class Vision extends SubsystemBase {
     }
 
     private NetworkTable getFirstActiveTable() {
-        if (cameraTableOne.getEntry("tv").getDouble(0) == 1)   return cameraTableOne;
+        if (cameraTableOne.getEntry("tv").getDouble(0) == 1) return cameraTableOne;
         return cameraTableOne; // default fallback
     }
 
@@ -163,7 +137,6 @@ public class Vision extends SubsystemBase {
 
     public void setLEDMode(int mode) {
         cameraTableOne.getEntry("ledMode").setNumber(mode);
-
     }
 
     public void setRobotOrientation(double yaw, double yawRate) {
@@ -178,63 +151,23 @@ public class Vision extends SubsystemBase {
     // ---------------- MEGATAG2 SUPPORT ----------------
 
     public static class VisionMeasurement {
-        // public Pose2d pose;
         public Pose2d pose;
-        //here is where the poseestimator object should be 
-        //addvisionmeasurements working all objects made are local move them later
         public double timestamp;
         public int tagCount;
         public double avgTagDist;
     }
 
-    // public static VisionMeasurement getMeasurement(String limelightName) {
-    //     var estimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
- 
-    //     // ALWAYS USE THE BLUE ALLIANCE (EVEN IF ON THE RED ALLIANCE) — this is because 
-    //     //    the operator perspective offset is baked into the pose estimation, and using 
-    //     //    the Red alliance would corrupt the pose on Red alliance.
-    //     // if (!OdometryHelper.isBlue()){
-    //     //     estimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
-    //     // }
-
-    //     if (estimate == null)
-    //         return null;
-
-    //     VisionMeasurement vm = new VisionMeasurement();
-    //     vm.pose = estimate.pose;
-    //     vm.timestamp = estimate.timestampSeconds;
-    //     vm.tagCount = estimate.tagCount;
-    //     vm.avgTagDist = estimate.avgTagDist;
-
-    //     return vm;
-    // }
-
     public static void updateRobotOrientation(CommandSwerveDrivetrain drivetrain) {
-       //  double yaw = drivetrain.getPose().getRotation().getDegrees();
-        // double yawRate = Math.toDegrees(drivetrain.getRobotRelativeSpeeds().omegaRadiansPerSecond);
-
-        // Use the raw Pigeon 2 (IMU - Inertial Measurement Unit) yaw directly.
-        // MegaTag2 needs the yaw in WPILib Blue-origin field coordinates:
-        // 0 degrees = robot facing the Red alliance wall.
-        // Do NOT use getPose().getRotation() here — that has the operator
-        // perspective offset baked in, which corrupts MegaTag2 on Red alliance.
+        // Use raw Pigeon 2 yaw directly — do NOT use getPose().getRotation() here
+        // because that has the operator perspective offset baked in, which would
+        // corrupt MegaTag2 on Red alliance.
         double yaw = drivetrain.getPigeon2().getYaw().getValueAsDouble();
         double yawRate = drivetrain.getPigeon2().getAngularVelocityZWorld().getValueAsDouble();
 
-        // MegaTag2 needs yaw in WPILib Blue-origin coordinates:
-        // 0 deg = robot facing the Red alliance wall.
-        // On Red alliance, the operator perspective has flipped "forward" by 180 deg,
-        // so we must correct for that when sending orientation to the Limelight.
-        // if (!OdometryHelper.isBlue()) {
-        //     yaw += 180.0;
-        // }
-
-
         for (String name : LIMELIGHTS) {
-             LimeLightHelpers.SetRobotOrientation(name, yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
-         }
+            LimeLightHelpers.SetRobotOrientation(name, yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
+        }
     }
-
 
     public static Vision getInstance() {
         if (instance == null) {
