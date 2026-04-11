@@ -11,19 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LEFT HALF COLLECT"
+                  "pathName": "RIGHT HALF COLLECT"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "END COLLECT"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "BACK TO SHOOT"
+                  "pathName": "RIGHT HALF SHOOT"
                 }
               }
             ]

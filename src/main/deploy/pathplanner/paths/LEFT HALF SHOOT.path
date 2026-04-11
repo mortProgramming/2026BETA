@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.803542857142858,
-        "y": 3.8924714285714286
+        "x": 7.781131756756757,
+        "y": 4.488499999999999
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.028225140421109,
-        "y": 3.8924714285714286
+        "x": 6.98116554054054,
+        "y": 3.6942736486486485
       },
       "isLocked": false,
       "linkedName": "END COLLECT"
+    },
+    {
+      "anchor": {
+        "x": 6.670067567567568,
+        "y": 4.834966216216217
+      },
+      "prevControl": {
+        "x": 6.781870966442558,
+        "y": 4.611359418466239
+      },
+      "nextControl": {
+        "x": 6.240200739907576,
+        "y": 5.6946998715361925
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,12 +36,12 @@
         "y": 5.732385714285714
       },
       "prevControl": {
-        "x": 7.510128571428572,
-        "y": 5.732385714285714
+        "x": 7.114493243243244,
+        "y": 5.679375
       },
       "nextControl": {
-        "x": 4.510128571428573,
-        "y": 5.732385714285714
+        "x": 4.510673997269457,
+        "y": 5.76540925425956
       },
       "isLocked": false,
       "linkedName": null
@@ -52,8 +68,8 @@
         "y": 4.488499999999999
       },
       "prevControl": {
-        "x": 3.0741857142857145,
-        "y": 4.838342857142857
+        "x": 2.96652027027027,
+        "y": 4.968293918918919
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,19 +78,19 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.7716535433070867,
-      "rotationDegrees": 180.0
+      "waypointRelativePos": 1.55,
+      "rotationDegrees": -0.7237149956683138
     },
     {
-      "waypointRelativePos": 1.6062992125984237,
-      "rotationDegrees": 180.0
+      "waypointRelativePos": 2.6062992125984237,
+      "rotationDegrees": 1.2009628984164287
     }
   ],
   "constraintZones": [
     {
       "name": "Bump",
-      "minWaypointRelativePos": 1.0209790209790213,
-      "maxWaypointRelativePos": 1.5244755244755235,
+      "minWaypointRelativePos": 2.0209790209790213,
+      "maxWaypointRelativePos": 2.5244755244755233,
       "constraints": {
         "maxVelocity": 3.0,
         "maxAcceleration": 2.0,
@@ -92,12 +108,25 @@
         "y": 4.04
       },
       "rotationOffset": 0.0,
-      "minWaypointRelativePos": 2.0349650349650354,
-      "maxWaypointRelativePos": 3.0,
+      "minWaypointRelativePos": 3.0349650349650354,
+      "maxWaypointRelativePos": 4.0,
       "name": "HUB"
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Shooter short",
+      "waypointRelativePos": 0.943521594684385,
+      "endWaypointRelativePos": 4.0,
+      "command": null
+    },
+    {
+      "name": "Feeder",
+      "waypointRelativePos": 4.0,
+      "endWaypointRelativePos": 4.0,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 5.0,
@@ -108,13 +137,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 155.0952311919047
+    "rotation": 66.56571741755448
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 3.0,
-    "rotation": -89.32243401964529
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }

@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.540642857142857,
+        "x": 3.4998310810810813,
         "y": 5.641685714285713
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.693828571428571,
+        "x": 4.653016795366796,
         "y": 5.6676
       },
       "isLocked": false,
@@ -16,44 +16,44 @@
     },
     {
       "anchor": {
-        "x": 5.950671428571429,
+        "x": 5.440489864864865,
         "y": 5.641685714285713
       },
       "prevControl": {
-        "x": 4.950671428571429,
-        "y": 5.641685714285713
+        "x": 4.440533869399683,
+        "y": 5.632304502571204
       },
       "nextControl": {
-        "x": 6.950671428571429,
-        "y": 5.641685714285713
+        "x": 6.299712837837839,
+        "y": 5.64974662162162
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.907094594594595,
-        "y": 6.627483108108108
+        "x": 7.144121621621622,
+        "y": 6.834881756756756
       },
       "prevControl": {
-        "x": 6.472120752895753,
-        "y": 6.583340685328185
+        "x": 6.70914777992278,
+        "y": 6.790739333976833
       },
       "nextControl": {
-        "x": 7.324997753683129,
-        "y": 6.66989314788775
+        "x": 7.562024780710156,
+        "y": 6.877291796536398
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.795945945945945,
-        "y": 4.5238682432432435
+        "x": 7.810760135135135,
+        "y": 4.479425675675675
       },
       "prevControl": {
-        "x": 6.811203088803088,
-        "y": 4.510911100386101
+        "x": 7.958902027027028,
+        "y": 5.234949324324323
       },
       "nextControl": null,
       "isLocked": false,
@@ -64,6 +64,10 @@
     {
       "waypointRelativePos": 0.7913385826771646,
       "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.7526315789473705,
+      "rotationDegrees": 37.35497242891292
     }
   ],
   "constraintZones": [
@@ -84,12 +88,6 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Shooter short",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 0.0,
-      "command": null
-    },
-    {
       "name": "intake",
       "waypointRelativePos": 0.9930069930069929,
       "endWaypointRelativePos": 3.454545454545453,
@@ -106,7 +104,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": null,
