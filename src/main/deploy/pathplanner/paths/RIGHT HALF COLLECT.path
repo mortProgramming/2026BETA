@@ -78,6 +78,12 @@
       "waypointRelativePos": 1.1561461794019934,
       "endWaypointRelativePos": 3.0,
       "command": null
+    },
+    {
+      "name": "IntakeArmDown",
+      "waypointRelativePos": 1.4195804195804196,
+      "endWaypointRelativePos": 1.4195804195804196,
+      "command": null
     }
   ],
   "globalConstraints": {
