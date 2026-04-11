@@ -4,10 +4,12 @@
 
 package frc.robot;
 
+import  frc.robot.subsystems.OdometryHelper;
 import frc.robot.Constants.PIDConstants;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.*;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.auto.Limelight.*;
 // import frc.robot.Constants.PhysicalConstants.ShooterFeederConstants;
 // import frc.robot.Constants.PhysicalConstants.IntakeConstants;
 // import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
@@ -20,6 +22,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.commands.teleop.SetIntakeArm;
 import frc.robot.commands.teleop.SetShooterVelocity;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -38,6 +41,7 @@ import frc.robot.commands.auto.TaxiHalfLeftCollectShort;
 import frc.robot.commands.auto.TaxiHalfRightCollectShort;
 import frc.robot.commands.auto.TaxiLAttack;
 import frc.robot.commands.auto.TaxiLCollectHalf;
+import frc.robot.commands.auto.TaxiLSafe;
 import frc.robot.commands.auto.TaxiLSide;
 import frc.robot.commands.auto.TaxiLSideAnnoy;
 import frc.robot.commands.auto.TaxiLSideDepot;
@@ -47,6 +51,7 @@ import frc.robot.commands.auto.TaxiLeftPark;
 import frc.robot.commands.auto.TaxiNothing;
 import frc.robot.commands.auto.TaxiRAttack;
 import frc.robot.commands.auto.TaxiRCollectHalf;
+import frc.robot.commands.auto.TaxiRSafe;
 import frc.robot.commands.auto.TaxiRSide;
 import frc.robot.commands.auto.TaxiRSideAnnoy;
 import frc.robot.commands.auto.TaxiRightCollectShort;
@@ -59,6 +64,8 @@ import frc.robot.commands.teleop.MoveIntakeArm;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeArm;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.OdometryHelper;
 import frc.robot.subsystems.ShooterFeeder;
 import frc.robot.subsystems.ShooterMotor;
 
@@ -82,6 +89,8 @@ import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shooti
 
 
 public class RobotContainer {
+    private final Limelight limelightOne = new Limelight("limelight-one");
+public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, limelightOne);
     private final Intake m_intake = Intake.getInstance();
     private final IntakeArm m_intakeArm = IntakeArm.getInstance();
     private final ShooterFeeder m_shooterFeeder = ShooterFeeder.getInstance();
@@ -117,16 +126,15 @@ public class RobotContainer {
 
          endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
          endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
-        endeffectorController.pov(90).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+      //  endeffectorController.pov(90).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
 
         
-        // endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
+         endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
 
         endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
         endeffectorController.y().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants2.shootingVel));
         endeffectorController.b().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants3.shootingVel));
-
-        joystick.rightTrigger(0.2).whileTrue(new RotateToHub(null));
+joystick.rightTrigger(0.2).whileTrue(new RotateToHub(odometryHelper));
         endeffectorController.a().onTrue(new MoveShooterMotor(0));
 
         //evan test
@@ -201,11 +209,13 @@ public void configureAuto() {
             autoChooser.addOption("HalfLeftCollectShort", new TaxiHalfLeftCollectShort());
                         autoChooser.addOption("LeftCollectShort", new TaxiLeftCollectShort());
                   autoChooser.addOption("RightCollectShort", new TaxiRightCollectShort());
+                    autoChooser.addOption("LeftSafe", new TaxiLSafe());
+                  autoChooser.addOption("RightSafe", new TaxiRSafe());
            //   autoChooser.addOption("RightHoard", new TaxiRightHoard());
    //autoChooser.addOption("LeftHoard", new TaxiLeftHoard());
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
-}
+} 
     public static CommandXboxController getDriverController() {
         return joystick;
     }
@@ -213,6 +223,9 @@ public void configureAuto() {
     public static CommandSwerveDrivetrain getSwerveDrivetrain() {
         return drivetrain;
     }
+    public OdometryHelper getOdometryHelper() {
+    return odometryHelper;
+}
     public Command getAutonomousCommand() {
          return autoChooser.getSelected();
         // Simple drive forward auton
