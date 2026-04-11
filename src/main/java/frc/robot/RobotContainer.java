@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.PIDConstants;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.*;
+import edu.wpi.first.wpilibj.Joystick;
 // import frc.robot.Constants.PhysicalConstants.ShooterFeederConstants;
 // import frc.robot.Constants.PhysicalConstants.IntakeConstants;
 // import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -51,6 +53,7 @@ import frc.robot.commands.auto.TaxiRightCollectShort;
 import frc.robot.commands.auto.TaxiRightHoard;
 import frc.robot.commands.auto.TaxiRightPark;
 import frc.robot.commands.auto.TimedDrive;
+import frc.robot.commands.auto.Limelight.RotateToHub;
 import frc.robot.commands.teleop.MoveShooterFeeder;
 import frc.robot.commands.teleop.MoveIntakeArm;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -98,8 +101,8 @@ public class RobotContainer {
 
    
 
-   private final CommandXboxController joystick = new CommandXboxController(0);
-   private final CommandXboxController endeffectorController = new CommandXboxController(1);
+   private static final CommandXboxController joystick = new CommandXboxController(0);
+   private static final CommandXboxController endeffectorController = new CommandXboxController(1);
 
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
@@ -114,14 +117,16 @@ public class RobotContainer {
 
          endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
          endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
-        // endeffectorController.pov(180).whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
-        // endeffectorController.pov(0).whileTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.inPosition));
+        endeffectorController.pov(90).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+
         
-        endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
+        // endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
 
         endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
         endeffectorController.y().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants2.shootingVel));
         endeffectorController.b().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants3.shootingVel));
+
+        joystick.rightTrigger(0.2).whileTrue(new RotateToHub(null));
         endeffectorController.a().onTrue(new MoveShooterMotor(0));
 
         //evan test
@@ -201,6 +206,9 @@ public void configureAuto() {
     SmartDashboard.putData("Auto Chooser", autoChooser);
     
 }
+    public static CommandXboxController getDriverController() {
+        return joystick;
+    }
 
     public static CommandSwerveDrivetrain getSwerveDrivetrain() {
         return drivetrain;
