@@ -5,22 +5,58 @@
     "data": {
       "commands": [
         {
-          "type": "deadline",
+          "type": "path",
+          "data": {
+            "pathName": "RIGHT HALF COLLECT"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RIGHT HALF SHOOT"
+          }
+        },
+        {
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "RIGHT HALF COLLECT"
+                  "name": "Shooter short"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "RIGHT HALF SHOOT"
+                  "name": "Feeder"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 6.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeArmUp"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RHALF CYLCE COLLECT "
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RHALF CYCLE SHOOT"
           }
         }
       ]

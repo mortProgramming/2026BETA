@@ -13,6 +13,7 @@ public class MoveIntake extends Command {
     }
     public void initialize() {
         SignalLogger.stop();
+        
     }
     public void execute() {
         m_intake.setSpeed(m_speed);

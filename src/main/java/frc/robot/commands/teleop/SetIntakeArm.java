@@ -12,7 +12,7 @@ public class SetIntakeArm extends Command {
         targetPosition=position;
     }
     public void initialize(){
-        
+        intakeArm.getPidController();
     }
     public void execute(){
         intakeArm.setArmPosition(targetPosition);
