@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.OdometryHelper;
-
+import frc.robot.subsystems.Vision;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import frc.robot.Constants.TunerConstants;
 
@@ -25,9 +25,9 @@ public class RotateToHub extends Command {
     // PD gains — tune kP first, then add a small kD if it oscillates
     private static final double kP            = 0.3;
     private static final double kD            = 0.001;
-    private static final double MAX_ROT_SPEED = 7.0;   // rad/s — lower if too aggressive
-    private static final double DEADBAND_DEG  = 1.5;   // degrees of acceptable error
-    private static final double FINISHED_DEG  = 2.0;   // degrees to consider "locked on"
+    private static final double MAX_ROT_SPEED = 4.0;   // rad/s — lower if too aggressive
+    private static final double DEADBAND_DEG  = 3;   // degrees of acceptable error
+    private static final double FINISHED_DEG  = 3;   // degrees to consider "locked on"
 
     private double previousError = 0.0;
 
@@ -70,12 +70,12 @@ public class RotateToHub extends Command {
 
     // PD controller for rotation
     double rotationSpeed;
-    if (Math.abs(headingErrorDeg) < DEADBAND_DEG) {
+    if (Math.abs(headingErrorDeg) < DEADBAND_DEG ) {
         rotationSpeed = 0.0;
     } else {
         double derivative = headingErrorDeg - previousError;
         rotationSpeed = (kP * headingErrorDeg) + (kD * derivative);
-        rotationSpeed = Math.max(-MAX_ROT_SPEED, Math.min(MAX_ROT_SPEED, rotationSpeed));
+        rotationSpeed = Math.max(3, Math.min(2, rotationSpeed));
     }
     previousError = headingErrorDeg;
 
@@ -95,13 +95,18 @@ public class RotateToHub extends Command {
             .withVelocityX(finalX)
             .withVelocityY(finalY)
             .withRotationalRate(finalRot)
-    ).schedule();
+    ).execute();
 
     // Telemetry for tuning
     SmartDashboard.putNumber("Heading Error to Hub (deg)", headingErrorDeg);
     SmartDashboard.putNumber("Field Angle to Hub (deg)", fieldAngleToHub.getDegrees());
     SmartDashboard.putNumber("Rotation Speed Output", rotationSpeed);
-}
+    //  SmartDashboard.putNumber("Tag ID", getTagId());
+    // SmartDashboard.putNumber("X Degrees", getTX());
+    // SmartDashboard.putBoolean("Tag Detected?", hasTag());
+    // SmartDashboard.putBoolean("AprilTag Detected", getTagId() != -1); // ADD THIS LINE
+} 
+
     @Override
     public void end(boolean interrupted) {
         previousError = 0.0;
@@ -111,7 +116,7 @@ public class RotateToHub extends Command {
                 .withVelocityX(0)
                 .withVelocityY(0)
                 .withRotationalRate(0)
-        ).schedule();
+        ).execute();
     }
 
     @Override

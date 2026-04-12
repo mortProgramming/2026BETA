@@ -4,8 +4,14 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.config.PIDConstants;
+import com.ctre.phoenix6.swerve.SwerveRequest;
 import  frc.robot.subsystems.OdometryHelper;
-import frc.robot.Constants.PIDConstants;
+import frc.robot.Constants.PIDConstants.*;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.*;
 import edu.wpi.first.wpilibj.Joystick;
@@ -35,6 +41,7 @@ import frc.robot.commands.teleop.MoveIntake;
 import frc.robot.commands.teleop.MoveShooterMotor;
 // import frc.robot.commands.teleop.SetClimber;
 import frc.robot.Constants.TunerConstants;
+import frc.robot.commands.auto.BasicCommands;
 import frc.robot.commands.auto.TaxiCenter;
 import frc.robot.commands.auto.TaxiCenterDepot;
 import frc.robot.commands.auto.TaxiHalfLeftCollectShort;
@@ -115,8 +122,32 @@ public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, lime
 
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
+        BasicCommands.setCommands(odometryHelper, m_shooterMotor, m_intakeArm, m_shooterFeeder, m_intake);
+        try {
+    AutoBuilder.configure(
+        () -> drivetrain.getState().Pose,
+        drivetrain::resetPose,
+        () -> drivetrain.getState().Speeds,
+        (speeds, feedforwards) -> drivetrain.setControl(
+            new SwerveRequest.ApplyRobotSpeeds()
+                .withSpeeds(speeds)
+                .withWheelForceFeedforwardsX(feedforwards.robotRelativeForcesXNewtons())
+                .withWheelForceFeedforwardsY(feedforwards.robotRelativeForcesYNewtons())
+        ),
+        new PPHolonomicDriveController(
+            new PIDConstants(5.0, 0.0, 0.0),
+            new PIDConstants(5.0, 0.0, 0.0)
+        ),
+        RobotConfig.fromGUISettings(),
+        OdometryHelper::isBlue,
+        drivetrain
+    );
+} catch (Exception e) {
+    e.printStackTrace();
+}
         configureBindings();
         configureAuto();
+        
     }
     public void configureBindings() {
 
@@ -188,8 +219,12 @@ joystick.rightTrigger(0.2).whileTrue(new RotateToHub(odometryHelper));
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
+     
+
 public void configureAuto() {
     autoChooser = new SendableChooser<Command>();
+    SmartDashboard.putData("autoChooser", autoChooser);
+
    autoChooser.setDefaultOption("Nothing", new TaxiNothing());
      autoChooser.addOption("CenterShoot", new TaxiCenter());
     autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
@@ -209,11 +244,17 @@ public void configureAuto() {
             autoChooser.addOption("HalfLeftCollectShort", new TaxiHalfLeftCollectShort());
                         autoChooser.addOption("LeftCollectShort", new TaxiLeftCollectShort());
                   autoChooser.addOption("RightCollectShort", new TaxiRightCollectShort());
-                    autoChooser.addOption("LeftSafe", new TaxiLSafe());
-                  autoChooser.addOption("RightSafe", new TaxiRSafe());
-           //   autoChooser.addOption("RightHoard", new TaxiRightHoard());
+
+
+                 autoChooser.addOption("LEFT HALF COLLECT", new PathPlannerAuto("LEFT HALF COLLECT"));
+                   autoChooser.addOption("RIGHT HALF COLLECT", new PathPlannerAuto("RIGHT HALF COLLECT"));
+                //   autoChooser.addOption("LEFTHALFCOLLECT", new )
+                   // autoChooser.addOption("LeftSafe", new TaxiLSafe());
+                  //autoChooser.addOption("RightSafe", new TaxiRSafe());
+          // autoChooser.addOption("RightHoard", new TaxiRightHoard());
    //autoChooser.addOption("LeftHoard", new TaxiLeftHoard());
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+
     
 } 
     public static CommandXboxController getDriverController() {
@@ -245,5 +286,6 @@ public void configureAuto() {
         //     drivetrain.applyRequest(() -> idle)
        
 }
+
     }
 
