@@ -6,11 +6,12 @@ package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.TaxiCenter;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
 
@@ -50,7 +51,10 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        SmartDashboard.putNumber("Remaining Phase Time",DriverStation.getMatchTime());
+        SmartDashboard.putString("Current Phase", "Autonomous");
+    }
 
     @Override
     public void autonomousExit() {}
@@ -64,7 +68,17 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+                final int[] phaseStartTimes = {140, 130, 105, 80, 55, 30, 0}; // in seconds
+        final String[] phaseNames = {"Transition Shift", "Phase 1", "Phase 2", "Phase 3", "Phase 4", "Endgame", "End of Match"};
+        for(int i=0; i<phaseStartTimes.length-1; i++){
+            if(DriverStation.getMatchTime() <= phaseStartTimes[i] && DriverStation.getMatchTime() > phaseStartTimes[i+1]){
+                SmartDashboard.putNumber("Remaining Phase Time", DriverStation.getMatchTime()-phaseStartTimes[i+1]);
+                SmartDashboard.putString("Current Phase", phaseNames[i]);
+                break;
+            }
+        }
+    }
 
     @Override
     public void teleopExit() {}

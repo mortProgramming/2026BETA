@@ -91,13 +91,13 @@
     },
     {
       "name": "Feeder",
-      "waypointRelativePos": 3.0,
+      "waypointRelativePos": 2.847457627118643,
       "endWaypointRelativePos": 3.0,
       "command": null
     },
     {
       "name": "IntakeArmUp",
-      "waypointRelativePos": 3.0,
+      "waypointRelativePos": 2.8474576271186436,
       "endWaypointRelativePos": 3.0,
       "command": null
     }

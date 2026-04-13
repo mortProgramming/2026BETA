@@ -7,23 +7,23 @@ import frc.robot.Constants.PhysicalConstants;
 import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
 
 public class SetShooterVelocity extends Command {
-    public ShooterMotor shooter;
+    public ShooterMotor shootermotor;
     public double velocity;
     public double RPM; 
-    public SetShooterVelocity(double velocity) {
-        shooter = ShooterMotor.getInstance();
+    public SetShooterVelocity(ShooterMotor shootermotor, double velocity) {
+        shootermotor = ShooterMotor.getInstance();
         RPM=velocity;
 
-        addRequirements(shooter);
+        addRequirements(shootermotor);
     }
     public void initialize(){
-        shooter.getPidController().reset();
+        shootermotor.getPidController().reset();
     }
     public void execute(){
-        shooter.setShooterSpeedRPM(RPM);
+        shootermotor.setShooterSpeedRPM(RPM);
     }
     public void end(boolean interupted) { 
-        shooter.stop();
+        shootermotor.stop();
     }
     public boolean isFinished() {
         return false;

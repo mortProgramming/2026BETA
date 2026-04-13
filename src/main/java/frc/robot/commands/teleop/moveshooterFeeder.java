@@ -4,21 +4,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.PhysicalConstants;
 import frc.robot.subsystems.ShooterFeeder;
 public class MoveShooterFeeder extends Command {
-    private ShooterFeeder m_moveshooterFeeder;
+    private ShooterFeeder shooterFeeder;
     public double speed;
-    public MoveShooterFeeder(double speed) {
-        m_moveshooterFeeder = ShooterFeeder.getInstance();
+    public MoveShooterFeeder(ShooterFeeder shooterFeeder ,double speed) {
+        shooterFeeder = ShooterFeeder.getInstance();
         this.speed=speed;
-            addRequirements(m_moveshooterFeeder);
+            addRequirements(shooterFeeder);
     }
     public void initialize() {
         
     }
     public void execute() {
-        m_moveshooterFeeder.setSpeed(speed);
+        shooterFeeder.setSpeed(speed);
      }
     public void end(boolean interrupted) {
-        m_moveshooterFeeder.stop();
+        shooterFeeder.stop();
      }    
     public boolean isFinished() {
          return false;

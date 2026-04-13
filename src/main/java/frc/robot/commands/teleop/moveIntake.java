@@ -4,22 +4,22 @@ import com.ctre.phoenix6.SignalLogger;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 public class MoveIntake extends Command {
-    public Intake m_intake;
+    public Intake intake;
     public double m_speed;
-    public MoveIntake(double speed) {
+    public MoveIntake(Intake intake ,double speed) {
         m_speed = speed;
-        m_intake = Intake.getInstance();
-        addRequirements(m_intake);
+        intake = Intake.getInstance();
+        addRequirements(intake);
     }
     public void initialize() {
         SignalLogger.stop();
         
     }
     public void execute() {
-        m_intake.setSpeed(m_speed);
+        intake.setSpeed(m_speed);
     }
     public void end(boolean interrupted) {
-        m_intake.stop();
+        intake.stop();
     }    
     public boolean isFinished() {
         return false;

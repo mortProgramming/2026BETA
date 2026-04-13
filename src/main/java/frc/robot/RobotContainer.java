@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.commands.teleop.SetShooterVelocity;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.RobotConfig;
@@ -98,10 +100,10 @@ import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shooti
 public class RobotContainer {
     private final Limelight limelightOne = new Limelight("limelight-one");
 public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, limelightOne);
-    private final Intake m_intake = Intake.getInstance();
-    private final IntakeArm m_intakeArm = IntakeArm.getInstance();
-    private final ShooterFeeder m_shooterFeeder = ShooterFeeder.getInstance();
-    private final ShooterMotor m_shooterMotor = ShooterMotor.getInstance();
+    private final Intake intake = Intake.getInstance();
+    private final IntakeArm intakeArm = IntakeArm.getInstance();
+    private final ShooterFeeder shooterFeeder = ShooterFeeder.getInstance();
+    private final ShooterMotor shootermotor = ShooterMotor.getInstance();
     private SendableChooser<Command> autoChooser;
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -122,7 +124,7 @@ public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, lime
 
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
-        BasicCommands.setCommands(odometryHelper, m_shooterMotor, m_intakeArm, m_shooterFeeder, m_intake);
+        BasicCommands.setCommands(odometryHelper, shootermotor, intakeArm, shooterFeeder, intake);
         try {
     AutoBuilder.configure(
         () -> drivetrain.getState().Pose,
@@ -151,22 +153,22 @@ public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, lime
     }
     public void configureBindings() {
 
-        endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
-        endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
+        endeffectorController.leftBumper().whileTrue(new MoveIntake(intake,PhysicalConstants.IntakeConstants.intakeNeg));
+        endeffectorController.rightBumper().whileTrue(new MoveIntake(intake, PhysicalConstants.IntakeConstants.intakePos));
 
 
-         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
-         endeffectorController.pov(180).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos));
-      //  endeffectorController.pov(90).onTrue(new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));
+         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmNeg));
+         endeffectorController.pov(180).whileTrue(new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmPos));
+      //  endeffectorController.pov(90).onTrue(new SetIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.outPosition));
 
         
-         endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
+         endeffectorController.pov(90).whileTrue(new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
 
-        endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
-        endeffectorController.y().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants2.shootingVel));
-        endeffectorController.b().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants3.shootingVel));
-joystick.rightTrigger(0.2).whileTrue(new RotateToHub(odometryHelper));
-        endeffectorController.a().onTrue(new MoveShooterMotor(0));
+        endeffectorController.x().onTrue(new SetShooterVelocity(shootermotor,PhysicalConstants.ShooterMotorConstants.shootingVel));
+        endeffectorController.y().onTrue(new SetShooterVelocity(shootermotor,PhysicalConstants.ShooterMotorConstants2.shootingVel));
+        endeffectorController.b().onTrue(new SetShooterVelocity(shootermotor, PhysicalConstants.ShooterMotorConstants3.shootingVel));
+        joystick.rightTrigger(0.2).whileTrue(new RotateToHub(odometryHelper));
+        endeffectorController.a().onTrue(new MoveShooterMotor(shootermotor, 0));
 
         //evan test
         // endeffectorController.b().onTrue(new SetShooterVelocity(15));
@@ -174,8 +176,8 @@ joystick.rightTrigger(0.2).whileTrue(new RotateToHub(odometryHelper));
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
 
-        endeffectorController.rightTrigger(0.2).whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
-        endeffectorController.leftTrigger(0.2).whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
+        endeffectorController.rightTrigger(0.2).whileTrue(new MoveShooterFeeder(shooterFeeder,PhysicalConstants.ShooterFeederConstants.feedingPos));
+        endeffectorController.leftTrigger(0.2).whileTrue(new MoveShooterFeeder(shooterFeeder,PhysicalConstants.ShooterFeederConstants.feedingNeg));    
 
 
 ///   THIS IS X BOX CONTROLLER

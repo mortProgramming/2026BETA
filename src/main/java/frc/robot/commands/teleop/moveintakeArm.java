@@ -6,21 +6,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class MoveIntakeArm extends Command {
         private double m_speed;
-        private IntakeArm m_intakeArm;
+        private IntakeArm intakeArm;
 
-    public MoveIntakeArm(double speed) {
+    public MoveIntakeArm(IntakeArm intakeArm, double speed) {
         m_speed = speed;
-        m_intakeArm = IntakeArm.getInstance();
-        addRequirements(m_intakeArm);
+        intakeArm = IntakeArm.getInstance();
+        addRequirements(intakeArm);
 
     }
     public void initialize() {
     }
     public void execute() {
-        m_intakeArm.setSpeed(m_speed);
+        intakeArm.setSpeed(m_speed);
     }
     public void end(boolean interrupted) {
-        m_intakeArm.setSpeed(0);
+        intakeArm.setSpeed(0);
     }    
     public boolean isFinished() {
         return false;

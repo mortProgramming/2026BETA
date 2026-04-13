@@ -4,12 +4,12 @@ import frc.robot.subsystems.ShooterMotor;
 import frc.robot.Constants.PhysicalConstants;
 public class MoveShooterMotor extends Command {
 
-public ShooterMotor m_shooterMotor;
+public ShooterMotor shootermotor;
 public double speed;
 public double targetRPM;
-public MoveShooterMotor(double speed) {
-    m_shooterMotor = ShooterMotor.getInstance();
-    addRequirements(m_shooterMotor);
+public MoveShooterMotor(ShooterMotor shootermotor ,double speed) {
+    shootermotor = ShooterMotor.getInstance();
+    addRequirements(shootermotor);
     this.speed=speed;
     }
 
@@ -18,10 +18,10 @@ public MoveShooterMotor(double speed) {
     }
 
     public void execute() {
-        m_shooterMotor.setSpeed(speed);
+        shootermotor.setSpeed(speed);
     }
     public void end(boolean interrupted) {
-        m_shooterMotor.stop();
+        shootermotor.stop();
     }
     public boolean isFinished() {
         return false;
