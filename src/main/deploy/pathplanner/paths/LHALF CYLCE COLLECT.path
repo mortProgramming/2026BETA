@@ -52,8 +52,8 @@
         "y": 4.390540540540541
       },
       "prevControl": {
-        "x": 6.396823803896026,
-        "y": 4.541637160884097
+        "x": 6.396823803896023,
+        "y": 4.541637160884099
       },
       "nextControl": {
         "x": 7.025608108108108,
@@ -85,7 +85,7 @@
       },
       "prevControl": {
         "x": 6.27008445945946,
-        "y": 7.768175675675676
+        "y": 7.768175675675677
       },
       "nextControl": null,
       "isLocked": false,
@@ -124,7 +124,7 @@
     {
       "name": "IntakeArmDown",
       "waypointRelativePos": 0,
-      "endWaypointRelativePos": 0,
+      "endWaypointRelativePos": 0.8305084745762714,
       "command": {
         "type": "named",
         "data": {

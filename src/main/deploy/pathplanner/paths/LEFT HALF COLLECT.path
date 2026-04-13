@@ -90,7 +90,7 @@
     {
       "name": "IntakeArmDown",
       "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.8440677966101695,
       "command": {
         "type": "named",
         "data": {

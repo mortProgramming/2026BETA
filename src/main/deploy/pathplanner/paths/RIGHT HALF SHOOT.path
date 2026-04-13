@@ -84,12 +84,6 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
       "name": "Shooter short",
       "waypointRelativePos": 0.757475083056478,
       "endWaypointRelativePos": 3.0,
@@ -102,7 +96,7 @@
     },
     {
       "name": "Feeder",
-      "waypointRelativePos": 3.0,
+      "waypointRelativePos": 2.847457627118644,
       "endWaypointRelativePos": 3.0,
       "command": {
         "type": "named",
@@ -113,7 +107,7 @@
     },
     {
       "name": "IntakeArmUp",
-      "waypointRelativePos": 3.0,
+      "waypointRelativePos": 2.8474576271186454,
       "endWaypointRelativePos": 3.0,
       "command": {
         "type": "named",

@@ -7,9 +7,10 @@ import frc.robot.Constants.PhysicalConstants.IntakeArmConstants;
 public class SetIntakeArm extends Command {
     public IntakeArm intakeArm;
     public double targetPosition;
-    public SetIntakeArm(double position) {
+    public SetIntakeArm(IntakeArm intakeArm ,double position) {
         intakeArm = IntakeArm.getInstance();
         targetPosition=position;
+        addRequirements(intakeArm);
     }
     public void initialize(){
         intakeArm.getPidController();
