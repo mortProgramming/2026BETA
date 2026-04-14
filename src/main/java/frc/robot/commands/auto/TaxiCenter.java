@@ -15,12 +15,12 @@ import frc.robot.Constants.PhysicalConstants.ShooterMotorConstantsauto;
         public TaxiCenter() {
                addCommands(
             new SequentialCommandGroup(
-              new TimedDrive(2, -1, 0,0),
+              new TimedDrive(1, -0.15, 0,0),
               new ParallelCommandGroup(
                 new TimedIntakeArm(0.6, PhysicalConstants.IntakeArmConstants.intakeArmPos),
-                new TimedShoot(2, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel)),
+                new TimedShoot(2, PhysicalConstants.ShooterMotorConstants.shootingVel)),
               new ParallelCommandGroup(
-                  new TimedShoot(6, PhysicalConstants.ShooterMotorConstantsauto3.shootingVel),
+                  new TimedShoot(6, PhysicalConstants.ShooterMotorConstants.shootingVel),
                   new TimedFeed(6, PhysicalConstants.ShooterFeederConstants.feedingPos))
         )
         )

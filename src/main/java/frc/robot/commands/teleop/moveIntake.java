@@ -6,7 +6,7 @@ import frc.robot.subsystems.Intake;
 public class MoveIntake extends Command {
     public Intake intake;
     public double m_speed;
-    public MoveIntake(Intake intake ,double speed) {
+    public MoveIntake(double speed) {
         m_speed = speed;
         intake = Intake.getInstance();
         addRequirements(intake);

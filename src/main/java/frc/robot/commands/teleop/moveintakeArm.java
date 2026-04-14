@@ -8,7 +8,7 @@ public class MoveIntakeArm extends Command {
         private double m_speed;
         private IntakeArm intakeArm;
 
-    public MoveIntakeArm(IntakeArm intakeArm, double speed) {
+    public MoveIntakeArm(double speed) {
         m_speed = speed;
         intakeArm = IntakeArm.getInstance();
         addRequirements(intakeArm);

@@ -100,10 +100,10 @@ import static frc.robot.Constants.PhysicalConstants.ShooterMotorConstants.shooti
 public class RobotContainer {
     private final Limelight limelightOne = new Limelight("limelight-one");
 public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, limelightOne);
-    private final Intake intake = Intake.getInstance();
-    private final IntakeArm intakeArm = IntakeArm.getInstance();
-    private final ShooterFeeder shooterFeeder = ShooterFeeder.getInstance();
-    private final ShooterMotor shootermotor = ShooterMotor.getInstance();
+    private final Intake m_intake = Intake.getInstance();
+    private final IntakeArm m_intakeArm = IntakeArm.getInstance();
+    private final ShooterFeeder m_moveshooterFeeder = ShooterFeeder.getInstance();
+    private final ShooterMotor shooter = ShooterMotor.getInstance();
     private SendableChooser<Command> autoChooser;
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -124,7 +124,7 @@ public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, lime
 
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public RobotContainer() {
-        BasicCommands.setCommands(odometryHelper, shootermotor, intakeArm, shooterFeeder, intake);
+        BasicCommands.setCommands(odometryHelper, shooter, m_intakeArm, m_moveshooterFeeder, m_intake);
         try {
     AutoBuilder.configure(
         () -> drivetrain.getState().Pose,
@@ -152,23 +152,25 @@ public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, lime
         
     }
     public void configureBindings() {
+        try{
+        endeffectorController.leftBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));
+        endeffectorController.rightBumper().whileTrue(new MoveIntake(PhysicalConstants.IntakeConstants.intakePos));
+        } catch(Exception e){
+            System.out.println("Left or right bumper");
+        }
 
-        endeffectorController.leftBumper().whileTrue(new MoveIntake(intake,PhysicalConstants.IntakeConstants.intakeNeg));
-        endeffectorController.rightBumper().whileTrue(new MoveIntake(intake, PhysicalConstants.IntakeConstants.intakePos));
-
-
-         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmNeg));
-         endeffectorController.pov(180).whileTrue(new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmPos));
-      //  endeffectorController.pov(90).onTrue(new SetIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.outPosition));
+         endeffectorController.pov(0).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg));
+         endeffectorController.pov(180).whileTrue(new MoveIntakeArm( PhysicalConstants.IntakeArmConstants.intakeArmPos));
+      //  endeffectorController.pov(90).onTrue(new SetIntakeArm(IntakeArm intakeArm, PhysicalConstants.IntakeArmConstants.outPosition));
 
         
-         endeffectorController.pov(90).whileTrue(new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
+         endeffectorController.pov(90).whileTrue(new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPosautos));
 
-        endeffectorController.x().onTrue(new SetShooterVelocity(shootermotor,PhysicalConstants.ShooterMotorConstants.shootingVel));
-        endeffectorController.y().onTrue(new SetShooterVelocity(shootermotor,PhysicalConstants.ShooterMotorConstants2.shootingVel));
-        endeffectorController.b().onTrue(new SetShooterVelocity(shootermotor, PhysicalConstants.ShooterMotorConstants3.shootingVel));
+        endeffectorController.x().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel));
+        endeffectorController.y().onTrue(new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants2.shootingVel));
+        endeffectorController.b().onTrue(new SetShooterVelocity( PhysicalConstants.ShooterMotorConstants3.shootingVel));
         joystick.rightTrigger(0.2).whileTrue(new RotateToHub(odometryHelper));
-        endeffectorController.a().onTrue(new MoveShooterMotor(shootermotor, 0));
+        endeffectorController.a().onTrue(new MoveShooterMotor( 0));
 
         //evan test
         // endeffectorController.b().onTrue(new SetShooterVelocity(15));
@@ -176,8 +178,8 @@ public final OdometryHelper odometryHelper = new OdometryHelper(drivetrain, lime
         // joystick.x().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.restPos)); //rest
         // joystick.y().whileTrue(new SetClimber(PhysicalConstants.ClimberConstants.climbPos)); //climb
 
-        endeffectorController.rightTrigger(0.2).whileTrue(new MoveShooterFeeder(shooterFeeder,PhysicalConstants.ShooterFeederConstants.feedingPos));
-        endeffectorController.leftTrigger(0.2).whileTrue(new MoveShooterFeeder(shooterFeeder,PhysicalConstants.ShooterFeederConstants.feedingNeg));    
+        endeffectorController.rightTrigger(0.2).whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos));
+        endeffectorController.leftTrigger(0.2).whileTrue(new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingNeg));    
 
 
 ///   THIS IS X BOX CONTROLLER
@@ -230,22 +232,22 @@ public void configureAuto() {
    autoChooser.setDefaultOption("Nothing", new TaxiNothing());
      autoChooser.addOption("CenterShoot", new TaxiCenter());
     autoChooser.addOption("CenterDepot", new TaxiCenterDepot());
- autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
-     autoChooser.addOption("RightShoot", new TaxiRSide());
-    autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
-     autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
-     autoChooser.addOption("LeftShoot", new TaxiLSide());
-  autoChooser.addOption("LeftAttack", new TaxiLAttack());
-      autoChooser.addOption("LeftPark", new TaxiLeftPark());
-          autoChooser.addOption("RightPark", new TaxiRightPark());
-   autoChooser.addOption("RightAttack", new TaxiRAttack());
-   autoChooser.addOption("HalfLeftCollect", new TaxiLCollectHalf());
-      autoChooser.addOption("HalfRightCollect", new TaxiRCollectHalf());
+ //autoChooser.addOption("LeftCollect", new TaxiLSideAnnoy());
+     //autoChooser.addOption("RightShoot", new TaxiRSide());
+   // autoChooser.addOption("RightCollect", new TaxiRSideAnnoy());
+  //   autoChooser.addOption("LeftDepot", new TaxiLSideDepot());
+    // autoChooser.addOption("LeftShoot", new TaxiLSide());
+ // autoChooser.addOption("LeftAttack", new TaxiLAttack());
+     // autoChooser.addOption("LeftPark", new TaxiLeftPark());
+   //       autoChooser.addOption("RightPark", new TaxiRightPark());
+   //autoChooser.addOption("RightAttack", new TaxiRAttack());
+   //autoChooser.addOption("HalfLeftCollect", new TaxiLCollectHalf());
+     /// autoChooser.addOption("HalfRightCollect", new TaxiRCollectHalf());
 
-      autoChooser.addOption("HalfRightCollectShort", new TaxiHalfRightCollectShort());
-            autoChooser.addOption("HalfLeftCollectShort", new TaxiHalfLeftCollectShort());
-                        autoChooser.addOption("LeftCollectShort", new TaxiLeftCollectShort());
-                  autoChooser.addOption("RightCollectShort", new TaxiRightCollectShort());
+     // autoChooser.addOption("HalfRightCollectShort", new TaxiHalfRightCollectShort());
+         //   autoChooser.addOption("HalfLeftCollectShort", new TaxiHalfLeftCollectShort());
+       //                 autoChooser.addOption("LeftCollectShort", new TaxiLeftCollectShort());
+     //             autoChooser.addOption("RightCollectShort", new TaxiRightCollectShort());
 
 
                  autoChooser.addOption("LEFT HALF COLLECT", new PathPlannerAuto("LEFT HALF COLLECT"));

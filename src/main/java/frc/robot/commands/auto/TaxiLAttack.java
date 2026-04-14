@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
           new SequentialCommandGroup(
               new TimedDrive(2, 0, 2,-0),
                 new ParallelCommandGroup(
-                  new TimedDrive(1, 2, 0.4,0)),
+                  new TimedDrive(1, 2, 0.4,0)) ,
                   new WaitCommand(0.5),
                 new ParallelCommandGroup(
                   new TimedDrive(1, -2, 0.3,0),
