@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.10704391891892,
-        "y": 4.501457142857142
+        "x": 6.2875571428571435,
+        "y": 5.525071428571428
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.498058204633207,
-        "y": 3.5296714285714277
+        "x": 5.445342857142858,
+        "y": 5.550985714285714
       },
       "isLocked": false,
       "linkedName": null
@@ -20,12 +20,12 @@
         "y": 5.525071428571428
       },
       "prevControl": {
-        "x": 7.004782147545907,
-        "y": 5.496355033924294
+        "x": 6.987242857142857,
+        "y": 5.525071428571428
       },
       "nextControl": {
-        "x": 4.136671428571429,
-        "y": 5.550985714285714
+        "x": 4.136424648232013,
+        "y": 5.525071428571428
       },
       "isLocked": false,
       "linkedName": null
@@ -85,21 +85,36 @@
   "eventMarkers": [
     {
       "name": "Shooter short",
-      "waypointRelativePos": 0.9650349650349634,
+      "waypointRelativePos": 0.7132867132867136,
       "endWaypointRelativePos": 3.0,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Shooter short"
+        }
+      }
     },
     {
       "name": "Feeder",
       "waypointRelativePos": 2.847457627118643,
       "endWaypointRelativePos": 3.0,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Feeder"
+        }
+      }
     },
     {
       "name": "IntakeArmUp",
       "waypointRelativePos": 2.8474576271186436,
       "endWaypointRelativePos": 3.0,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeArmUp"
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -118,7 +133,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -91.36049647967639
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

@@ -6,7 +6,7 @@ import frc.robot.subsystems.ShooterFeeder;
 public class MoveShooterFeeder extends Command {
     private ShooterFeeder shooterFeeder;
     public double speed;
-    public MoveShooterFeeder(ShooterFeeder shooterFeeder ,double speed) {
+    public MoveShooterFeeder(double speed) {
         shooterFeeder = ShooterFeeder.getInstance();
         this.speed=speed;
             addRequirements(shooterFeeder);

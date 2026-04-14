@@ -20,13 +20,13 @@ public class BasicCommands {
     
     public static void setCommands(OdometryHelper odometry, ShooterMotor shootermotor, IntakeArm intakeArm, ShooterFeeder shooterFeeder, Intake intake) {
         
-        NamedCommands.registerCommand("Shooter short", new SetShooterVelocity(shootermotor,PhysicalConstants.ShooterMotorConstants.shootingVel).withTimeout(6));
-        NamedCommands.registerCommand("Feeder", new MoveShooterFeeder(shooterFeeder,PhysicalConstants.ShooterFeederConstants.feedingPos).withTimeout(6));
-        NamedCommands.registerCommand("intake", new MoveIntake(intake,PhysicalConstants.IntakeConstants.intakeNeg));//.withTimeout(1));
-        NamedCommands.registerCommand("IntakeArmDown", new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmNeg));//.withTimeout(1));
-        NamedCommands.registerCommand("IntakeArmHold", new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmPosauto));//.withTimeout(1));
+        NamedCommands.registerCommand("Shooter short", new SetShooterVelocity(PhysicalConstants.ShooterMotorConstants.shootingVel).withTimeout(1));
+        NamedCommands.registerCommand("Feeder", new MoveShooterFeeder(PhysicalConstants.ShooterFeederConstants.feedingPos).withTimeout(1));
+        NamedCommands.registerCommand("intake", new MoveIntake(PhysicalConstants.IntakeConstants.intakeNeg));//.withTimeout(1));
+        NamedCommands.registerCommand("IntakeArmUp", new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmNeg).withTimeout(0.75));
+        NamedCommands.registerCommand("IntakeArmHold", new MoveIntakeArm(0.2));//.withTimeout(1));
         //NamedCommands.registerCommand("IntakeArmHold", new SetIntakeArm(PhysicalConstants.IntakeArmConstants.outPosition));//.withTimeout(1));
-        NamedCommands.registerCommand("IntakeArmUp", new MoveIntakeArm(intakeArm, PhysicalConstants.IntakeArmConstants.intakeArmPos).withTimeout(6));
+        NamedCommands.registerCommand("IntakeArmDown", new MoveIntakeArm(PhysicalConstants.IntakeArmConstants.intakeArmPos).withTimeout(0.8));
         NamedCommands.registerCommand("HubLock", new RotateToHub(odometry).withTimeout(1));
         
     

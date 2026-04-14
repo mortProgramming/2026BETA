@@ -10,7 +10,7 @@ public class SetShooterVelocity extends Command {
     public ShooterMotor shootermotor;
     public double velocity;
     public double RPM; 
-    public SetShooterVelocity(ShooterMotor shootermotor, double velocity) {
+    public SetShooterVelocity(double velocity) {
         shootermotor = ShooterMotor.getInstance();
         RPM=velocity;
 
